@@ -9,8 +9,6 @@ Ans :- Sir currently i am not able to come up with the right answer to this ques
 
 # --------------------- Follow Need what HOW ?-------------
 
-## **(A)** HTML :---
-
 Note - _HTML is not case sensitive but we should always use Lowercase as it is widely accepted_--
 
 ### Q0) What is HTML?
