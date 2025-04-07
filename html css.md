@@ -13,7 +13,7 @@ Ans :- Sir currently i am not able to come up with the right answer to this ques
 
 Note - _HTML is not case sensitive but we should always use Lowercase as it is widely accepted_--
 
-### Q0)What is HTML?
+### Q0) What is HTML?
 
 Ans :--
 (generate the need)
@@ -23,7 +23,8 @@ Ans :--
 When we want to build any website or web application, we need a way to add structore to our website —like headings, paragraphs, images, forms, buttons, etc. as Without a structure, the browser won’t understand how to display the elements properly.
 So in order to do that we have Html
 
-**What :----**
+**What :--**
+
 So HTML stands for hyper text markup language and it used to define the structure and content of our webpage . This like the skeleton of our webpage .
 It allows us to define various elements like heading , paragraph etc.
 Html have 4 key elements inside which all the other elements are defined
