@@ -28,7 +28,7 @@ It allows us to define various elements like heading , paragraph etc.
 Html have 4 key elements inside which all the other elements are defined
 
 1. doctype
-2. root element
+2. root html element
 3. head element
 4. body element
 
