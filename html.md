@@ -69,15 +69,13 @@ So this is how we create an HTML document file (**Boiler plate banao**)
 
 ### Q1) How does the browser loads HTML and JS files upon visiting a particular website? (crio)
 
-Ans -- When we visit a website, the process of loading HTML and JavaScript files, along with other resources like CSS and images, is a multi-step process that involves both wer web browser and the web server hosting the website.
+Ans -- When we visit a website, the process of loading HTML and JavaScript files, is a multi-step process :--
 
-**DNS Lookup**: The first step is DNS Lookup in which the browser finds the IP address of the website we're trying to visit.
+**DNS Lookup**: So ,The first step is DNS Lookup in which the browser finds the IP address of the website we're trying to visit.
 
-and then After getting the IP, the browser connects to the server via TCP/IP (often using HTTPS for secure communication).
+**HTTP Request**: then in the next step it Request for HTML file using HTTP reuest by sending a GET request to the server asking for the HTML file.
 
-**HTTP Request**: then in the next step is Request for HTML file using HTTP reuest in this The browser sends a GET request to the server asking for the HTML file.
-
-**Server Response & Parsing**: And then the Server responds with the HTML file and then the browser starts parsing it line by line from top to bottom .
+**Server Response & Parsing**: And then the Server responds with the HTML file and after getting the HTML file the browser starts parsing it line by line from top to bottom .
 and it then loads the css and javascript files ( and if theere is no aync or defer tag the browser stops HTML parsing and it starts downloading and executing javascript file where it finds .)
 
 If async is used, JS is downloaded and executed as soon as it's ready (even if HTML is still parsing).
