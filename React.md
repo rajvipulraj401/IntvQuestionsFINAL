@@ -374,17 +374,7 @@ React is needed not because HTML/CSS/JS are not capable — but because **React 
 
 --- -->
 
-7. What is a Single Page Application (SPA)?
-
-<!-----
-
-  ---------8--------
-
---- -->
-
----
-
-### Q5) what is a singlepage application ?
+### Q7) what is a singlepage application ?
 
 Ans:--
 **Need? ---**
@@ -408,7 +398,46 @@ So this way we just make use of Single page application with just one html file 
 
 ---
 
-<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+---
+
+### 📺 Sir, can I show an example?
+
+🖥 Let me share my screen and show how a React SPA switches between routes without reloading the page using React Router.
+
+```jsx
+// App.js
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+const Home = () => <h2>Home Page</h2>;
+const About = () => <h2>About Page</h2>;
+
+function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+> When you click “About”, React loads the new component **without reloading the page** — that’s a SPA behavior.
+
+---
+
+<!-----
+
+  ---------8--------
+
+--- -->
+
+---
 
 ## **(b)**
 
