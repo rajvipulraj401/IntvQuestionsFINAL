@@ -724,13 +724,15 @@ Ans :-- So the difference between **functional components** and **class-based co
    Earlier, they were called “stateless components”, but now with **React Hooks**, they can handle state and side effects too.
    While **class-based components** are ES6 classes that extend `React.Component` and must have a `render()` method to return JSX.
 
-2. **Secondly**, functional components **use hooks like `useState` and `useEffect`** to manage state and lifecycle methods,
-   whereas class-based components **use `this.state` for state** and have lifecycle methods like `componentDidMount`, `componentDidUpdate`, etc.
+2. **Secondly**, functional components **use hooks like `useState` and `useEffect`** to manage state and lifecycle methods,which **simplifies state management and lifecycle methods** and makes the code cleaner and less complex whereas class-based components **use `this.state` for state** and have lifecycle methods like `componentDidMount`, `componentDidUpdate`, to manage state and lifecycle of a component
 
-3. **Lastly**, functional components are **simpler, shorter, and better for performance** as they do not require class instances,
-   while class-based components **are more complex** due to the `this` keyword and lifecycle methods, making them slightly **slower**.
+3. **Thirdly**, functional components are **simpler, shorter, and better for performance** as they do not require class instances,
+   while class-based components **are more complex** due to the `this` keyword and lifecycle methods, making them consume more memory and slightly **slower** as compared to funcitonal component.
 
-As a result,in modern React applications, **functional components with hooks** are preferred over class-based components. 🚀
+4. **and functional components encourage code reusability**
+   - With hooks, logic can be separated into **custom hooks**, making code **more reusable and maintainable**, while class-based components often lead to complex, hard-to-reuse logic.
+
+### As a result,in modern React applications, **functional components with hooks** are preferred over class-based components.
 
 ---
 
@@ -818,32 +820,33 @@ export default ClassComponent;
 
 ## Q12) Advantages of using functional components over class-based components?
 
-Ans :--
-
 ---
 
-Ans :-- The advantages of **functional components** over **class-based components** are that
+### **Need**
 
-1. **Functional components are simpler and easier to read**
+React allows us to create components in two ways — one is **functional component** and other is using **class based components**.
+Before the introduction of hooks class components were the only way to manage state and lifecycle method . but
+Class components had too much boilerplate and were harder to read and test.
+So To solve this, React Hooks were introduced in React version 16.8, which gave functional components a lot of advantage .
 
-   - They are just JavaScript functions that take `props` and return JSX, making them **shorter and more readable** compared to class-based components,
-     which require `this`, lifecycle methods, and a `render()` function.
+Ans :-- So some of The advantages of **functional components** over **class-based components** are that
 
-2. **Secondly, functional components have better performance**
+1.  **Functional Components** - are simple JavaScript functions that take `props` as input and return JSX.  
+    Earlier, they were called “stateless components”, but now with **React Hooks**, they can handle state and side effects too.
+    While **class-based components** are ES6 classes that extend `React.Component` and must have a `render()` method to return JSX.
 
-   - Since they do not require creating an instance of a class, they consume **less memory** and execute **faster**, making the application more efficient.
+2.  **Secondly**,- functional components **use hooks like `useState` and `useEffect`** to manage state and lifecycle methods,which **simplifies state management and lifecycle methods** and makes the code cleaner and less complex whereas class-based components **use `this.state` for state** and have lifecycle methods like `componentDidMount`, `componentDidUpdate` to manage state and lifecycle of a component
 
-3. **Thirdly, functional components use Hooks instead of lifecycle methods**
+3.  **Thirdly,**
 
-   - Hooks like `useState` and `useEffect` **simplify state management and side effects**, making code cleaner and reducing unnecessary re-renders
-     compared to class-based lifecycle methods.
+    - functional components are **simpler, shorter, and better for performance** as they do not require class instances,
+      while class-based components **are more complex** due to the `this` keyword and lifecycle methods, and they consume more memory and are slightly **slower** as compared to funcitonal component.
 
-4. **Lastly, functional components encourage code reusability**
-   - With hooks, logic can be separated into **custom hooks**, making code **more reusable and maintainable**, while class-based components often lead to complex, hard-to-reuse logic.
+4.  **and functional components also encourage code reusability**
+    - as With hooks, logic can be separated into **custom hooks**, making code **more reusable and maintainable**, while class-based components
+      code are complex and hard to read .
 
-So, **functional components with hooks** are now the preferred way to write React components due to their simplicity, performance, and better reusability. 🚀
-
----
+### As a result,in modern React applications, **functional components with hooks** are preferred over class-based components.
 
 <!-----
 
