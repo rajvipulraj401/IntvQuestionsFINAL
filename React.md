@@ -927,47 +927,243 @@ function Greeting({ name }) {
 
 --- ----------------------------->
 
-## _Functional Components & Hooks_
+# **(c)** _Functional Components & Hooks_
 
-14. What are hooks?
+## Q14) What are Hooks?
+
+---
+
+### **Need**
+
+Earlier, whenever we created a React component and needed to manage **state**, **lifecycle methods**, or handle **side-effects** , we had to use **class components**..
+
+But the main downside of class based components was that they were complex, harder to read, and difficult to debug.
+
+and so in order To solve these issues and enable us to use state and lifecycle features inside functional components, React introduced Hooks in version 16.8. which made the code **cleaner, reusable, and easier to understand**.
+
+---
+
+### **What**
+
+#### What exactly are Hooks?
+
+**Hooks** in React are special functions that **allow functional components to use
+state and other React features** without writing a class based component.
+
+#### Some of the Most commonly used hooks are:
+
+1. **useState** – Allows functional components to manage state.
+2. **useEffect** – Handles side effects like fetching data or updating the DOM.
+3. **useContext** – Accesses global data without passing props manually.
+4. **useRef** – Creates a reference to directly interact with DOM elements.
+5. **useReducer** – Manages complex state logic like Redux but inside a component.
+
+6. **useMemo** -
+
+7. **useCallback** -
+
+| Hook Name       | Purpose                                                 |
+| --------------- | ------------------------------------------------------- |
+| `useState()`    | Add state to functional components                      |
+| `useEffect()`   | Handle side effects (like API calls, DOM updates, etc.) |
+| `useContext()`  | Access React Context API inside functional components   |
+| `useRef()`      | Persist values across renders or access DOM elements    |
+| `useReducer()`  | Alternative to `useState` for complex state logic       |
+| `useMemo()`     | Memoize expensive calculations to optimize performance  |
+| `useCallback()` | Memoize functions to prevent unnecessary re-renders     |
+
+---
+
+---
+
+### **How**
+
+### 📺 **Sir, can I share my screen to show this with an example?**
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Component rendered or count changed");
+  }, [count]);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+> In the above example:
+>
+> - `useState` adds state to the component
+> - `useEffect` runs after each update — works like lifecycle methods
+
+---
 
 <!-----
 
-  ---------14--------
+  ---------15--------
 
 --- -->
 
-15. Why not use variable instead of useState?
-16. How to implement different lifecycle methods using useEffect?
+## Q15) Why not use a normal variable instead of `useState()` in React?
+
+---
+
+Ans:--
+
+### **Need**
+
+In a JavaScript apps, we can use `let` or `var` to store and update values . But In react ,The key difference is that React apps **re-render** when state changes, and **normal variables do not triggers re-renders**.
+So If we use a regular variable, to store some data instead of useState hook .Then that data **gets reset every time our component re-renders**, and **also changes in that variable won’t trigger a re-render** . hence we will not be able to show the updated data in our UI .
+
+So, when our goal is to **track dynamic values**(the value that is changing overtime) and reflect them in the UI, then normal variables won’t work and we have to use the useState hook.
+
+---
+
+### **What**
+
+now let's understand the main difference between using a useState hook working and a normal varialbe
+
+In React, every time a component **re-renders**, the function body is **executed again from top to bottom**.  
+and any normal variables **get re-initialized** on every render .
+
+As a result:
+
+- Changes to normal variables **do not persist** across renders
+- Updating them does **not cause a re-render**
+
+But `useState` on The other hand solves both problems:
+
+- it stores the value in the state (stores the value in React’s **internal memory**) so that it can persist across re-renders
+- and also when we update the state using its setter method it **automatically triggers a re-render**
+
+---
+
+### **How**
+
+### 📺 **Sir, can I share my screen to show this with an example?**
+
+```jsx
+import React, { useState } from "react";
+
+function Counter() {
+  let normalCount = 0; // normal variable
+  const [stateCount, setStateCount] = useState(0); // useState
+
+  const handleClick = () => {
+    normalCount++;
+    setStateCount(stateCount + 1);
+    console.log("Normal:", normalCount); // will reset to 0 every render
+  };
+
+  return (
+    <div>
+      <h3>Normal Count: {normalCount}</h3>
+      <h3>State Count: {stateCount}</h3>
+      <button onClick={handleClick}>Increment Both</button>
+    </div>
+  );
+}
+```
+
+> In this example:
+>
+> - `normalCount` **resets** to 0 on every render
+> - `stateCount` keeps updating and triggers re-renders correctly
+
+---
+
+### **Conclusion**
+
+✅ Use `useState` when you need to:
+
+- **Persist values** across re-renders
+- **Trigger re-renders** when the value changes
+
+❌ Normal variables are lost after each render and do not trigger UI updates.
+
+<!-----
+
+  ---------16--------
+
+--- -->
+
+## 16. How to implement different lifecycle methods using useEffect?
+
+<!-----
+
+  ---------17--------
+
+--- -->
+
 17. How does useEffect's behavior change with its dependency array?
+
+<!-----
+
+  ---------18--------
+
+--- -->
+
 18. Differentiate between useState and useEffect Hooks in React.
 
 ---
 
 <!--------------------------
 
-  -----------------------------------SECTION c-----------------------------  (ask on 19th april)7pm
+  -----------------------------------SECTION d-----------------------------  (ask on 19th april)7pm
 
 --- ----------------------------->
 
-### _React Props & State_
+# **(d)** _React Props & State_
 
 19. What are props in React?
-20. Why shouldn’t we directly update the state in React?
+<!-----
+
+---------20--------
+
+--- --> 20. Why shouldn’t we directly update the state in React?
+
+<!-----
+
+  ---------21--------
+
+--- -->
+
 21. Explain that if a parent component renders, do the child components also re-render?
+
+<!-----
+
+  ---------22--------
+
+--- -->
+
 22. Describe controlled and uncontrolled components.
 
 ---
 
 <!--------------------------
 
-  -----------------------------------SECTION D-----------------------------  (ask on 20th april)7pm
+  -----------------------------------SECTION e-----------------------------  (ask on 20th april)7pm
 
 --- ----------------------------->
 
-### _React Keys & List Rendering_
+# **(e)** _React Keys & List Rendering_
 
 23. What is a key in React? why are they used in list in react ?
+
+<!-----
+
+  ---------24--------
+
+--- -->
+
 24. Why do we need a key in React?
 25. What happens if we don’t use keys or use the same key for multiple items?
 26. Why does React have a key attribute? Why not just use id?
@@ -993,7 +1189,7 @@ function Greeting({ name }) {
 
 ---
 
-### _React Routing & Conditional Rendering_
+# **(f)** _React Routing & Conditional Rendering_
 
 46. What are the React Router methods?
     46.1) What is React router and is it Different from React-router-dom ?What happpend after the version 7 update to them ?
@@ -1001,7 +1197,7 @@ function Greeting({ name }) {
 47. What is conditional rendering? How does it work? Explain with an example.  
     **47.1.** What is the Difference between React-router and react-router-dom ?
 
-### _JavaScript Core Concepts_
+# **(g)** _JavaScript Core Concepts_
 
 48. How does prototypal inheritance work in JavaScript?
 49. Explain call(), apply(), and bind() methods in JavaScript.
@@ -1010,14 +1206,76 @@ function Greeting({ name }) {
 51. How to manage 3 Parallel API calls?
 52. what is promise.any , promise.race ? (jonas se pdho)
 
-## _React techniques and hooks_:--
+# **(h)** _React techniques and hooks_:--
 
 53. what is useState Hook ? and why we need state why can't we just use variable ?
 54. What does "debouncing" mean, and how can you implement it in React?
 55. Explain the concept of ‘Lifting State Up’ in React ?
 56. What is useRef Hook in React?
-    56.5) Explain all the types of hooks achhe se ? also what is custom hook and create 2 custom hook
-    _use the fe 202 intv question notes and that hooks videos for this_ ?
+    (example do yaha FOCUS krke input ko bolo chatgpt ko)
+    56.6) Explain all the types of hooks achhe se ? also what is custom hook and create 2 custom hook
+    _use the fe 202 intv question notes and that hooks videos (wo monk wala) for this_ ?
+
+    (**USEEffect hook ka [count] koi agr varaible dete hai toh wo bhi 2 time run hota hai mount pe toh sara hota hi hota hai ok na aur baaki jab wo variable change ho**)
+
+<!-----
+
+  ---------56.8--------
+
+--- -->
+
+## 56.8) Explain how `useEffect` hook can be used as `componentDidMount` method ?
+
+Ans :---
+
+### **Need**
+
+#### Why do we need to mimic `componentDidMount`?
+
+In **class-based components**, we used `componentDidMount()` to **run code only once** when the component mounts — like calling an API, setting up listeners, etc.  
+but In **functional components**, we don't have lifecycle methods — so we have to use the `useEffect` hook to handle the life cycle methods.
+
+---
+
+### **What is it**
+
+#### What does "acting like `componentDidMount`" mean?
+
+So in order to use the lifecycle method of `componentDidMount` and to run the code only once when it gets mounted we will use a useEffect and useEffect returns two things one is a callback function and another one is a dependancy array and using these two things we can achieve all the lifecycle method like the class component
+
+like if we want to do something when the Component gets mounted and use the lifecycle method like componentDidMount then all we have to do is pass
+an empty dependancy array and this will run the callback function when the component gets mount.
+
+and when we pass no dependancy array then the callback function runs every time when the component is re-rendered.
+
+and finally if we pass any value in the dependancy array then the callback function only runs when the value inside the dependacy array changes
+and alos when the component is mounted for the first time.
+
+### **How to implement**
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+```jsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    // This will run only once when the component mounts
+    console.log("Component mounted");
+
+    // You can call an API or perform setup here
+  }, []); // 👈 empty array means run once
+
+  return <h1>Hello from component</h1>;
+}
+```
+
+---
+
+> In this example, the `useEffect` with `[]` acts just like `componentDidMount` — it fetches data only once when the component first loads.
+
+---
+
 57. What are the differences between the useRef hook and the useState hook?
 58. Explain the difference between useCallback and useMemo hooks.
 59. What is the useContext hook? and how it is used
@@ -1028,7 +1286,7 @@ function Greeting({ name }) {
 64. **What is Prop Drilling in React?**
 65. **What is the primary purpose of the useCallback hook in React?**
 
-## basic questions remaining:------
+# **(i)** basic questions remaining:------
 
 66. What is the difference between state and props in React
 67. What are Higher Order Components in React ?
@@ -1038,7 +1296,7 @@ function Greeting({ name }) {
 71. What is a pure component in React?
 72. How to do cleanup tasks in react functionall component like cancelling netwrok requests removing timers?
 
-## Advance questions :-----
+# **(j)** Advance questions :-----
 
 73. How to mock api calls ? (see fe 202 session 1 again )
 74. What is useReducer Hook in React

@@ -7,7 +7,9 @@ Ans :- Sir ,This is what i know at the moment and i am not exactly sure if i am 
 note 2.1 ) How to deal when you completely dont know ?
 Ans :- Sir currently i am not able to come up with the right answer to this question but i would love to get back to this question right after this interview
 
-# --------------------- Follow Need what HOW ?-------------
+# --------- **css** :--------- (----read in fe 102 lect 5 onwards notes ----)
+
+# **(A)** _Basic :--------_
 
 ### Q0) What is CSS?
 
