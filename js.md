@@ -239,14 +239,122 @@ Of course bhai! Ye question **“Explain…”** type hai, so I’m using your *
 
 ### 🔍 **Need**
 
-In JavaScript, sometimes variables or functions work **before** they are even declared in the code — which can be confusing for beginners.  
-To understand this strange behavior and **write bug-free code**, we need to learn about **hoisting**.
+In JavaScript, sometimes variables or functions work even **before** they are even declared in the code as we can access them .This is known as **hoisting**.
 
 ---
 
 ### 📖 **What is it**
 
-**Hoisting** is JavaScript’s default behavior of **moving declarations to the top** of the current scope (script or function) **before** the code is executed.
+**Hoisting** in javascript is a phenomena where a variable declared with var keyword and function declaration are **move to the top of the code** and only the variable declaration is hoisted to the top not the initialization which basically means that we can access them even before they are declared.
+It leads to bugs and problems in code .
+For example if we try to print a variable a which is decalred using var even before its declaration we will get undefined as output as only the declaration part is moved to the Top not the initialization .
+
+So in order to tackle the issues caused by hoisting, ES6 introduced two new keywords for declaring variables: let and const. what happens is that When variables are declared using let and const, they are also hoisted, but they enter a “temporal dead zone” (TDZ) from the start of the block until the declaration is encountered. This means you cannot access them before their declaration, and attempting to do so will result in a ReferenceError.
+
+```javascript
+console.log(a); // Output: undefined
+var a = 5;
+```
+
+The above code should be visualized like this so that why we get undefined .
+
+```javascript
+var a;
+console.log(a);
+a = 5;
+```
+
+- **Output:** `undefined` because `var a;` is hoisted to the top, but the assignment happens later.
+
+### Hoisting with `let` and `const`:
+
+```javascript
+console.log(a);
+let a = 10;
+```
+
+- **Output:** `ReferenceError`(reference error as we cannot access it before initialization )
+  because even though`let` and `const` are hoisted too, but they are in a **"temporal dead zone"**, so accessing them before declaration throws an error.
+
+### ---------**\***EXTRA STARTS HERE**\*\***\*\*\*\***\*\***----------
+
+`Extra --Variables declared with let and const are in what's called the Temporal Dead Zone from the start of the block until the line where they are declared.So if you try to access them before the actual declaration line, JavaScript will throw a ReferenceError.`
+
+##### ex 3--
+
+```javascript
+func();
+function func() {
+  console.log("hello"); //  Hello   Because the entire function is hoisted at the top
+}
+```
+
+Note - function declaration is hoisted entirely . (other function is hoisted partially (IT MEANS ONLY VARIABLE IS HOISTED AND uska type nahi pata ki wo variable function hai so if we call that function it will throw TypeError not undefined because we are making undefined call as function so this leads to error as we cannot make funciton call on undefined.) only if the function is declared using var cause of only declaration hoisted at top in var keyword and not assignment and if the function expression or arrow function is declared using let or const it will not be hoisted .(because let and const are not hoisted )
+
+#### Function Hoisting
+
+##### 1. **Function Declarations**:
+
+- **Entirely Hoisted**: Function declarations are hoisted entirely to the top of their scope. This means you can call the function before its declaration in the code.
+- **Example**:
+
+  ```javascript
+  console.log(myFunction()); // Works because myFunction is hoisted
+
+  function myFunction() {
+    return "Hello, world!";
+  }
+  ```
+
+- **Example 2**:
+
+```javascript
+console.log(myFunction); // undefined, because only the declaration is hoisted
+myFunction(); // TypeError: myFunction is not a function
+var myFunction = function () {
+  return "Hello, world!";
+};
+```
+
+##### Explanation:
+
+1. **Hoisting**: In JavaScript, variable declarations (but not initializations) are hoisted to the top of their scope. This means that the declaration of `myFunction` is hoisted, but its assignment (`function() { return "Hello, world!"; }`) is not.
+
+2. **First `console.log(myFunction)`**: At this point, `myFunction` is declared but not yet assigned, so it logs `undefined`.
+
+3. **Calling `myFunction()`**: Since `myFunction` is `undefined` at this point, trying to call it results in a `TypeError`, not a `ReferenceError`. The error message will be: `TypeError: myFunction is not a function`.
+
+4. **Assignment**: After the assignment, `myFunction` becomes a function that returns `"Hello, world!"`.
+
+#### 2. **Function Expressions and Arrow Functions**:
+
+- **Hoisted Partially with `var`**: If a function expression is declared using `var`, only the variable declaration is hoisted, not the assignment.
+
+- **Not Hoisted with `let` or `const`**: If a function expression or arrow function is declared using `let` or `const`, it is not hoisted.
+- **Example**:
+
+  ```javascript
+  console.log(myFunction); // ReferenceError, because let and const are not hoisted
+
+  let myFunction = () => {
+    return "Hello, world!";
+  };
+  ```
+
+#### Special Case with Function Expressions:
+
+```javascript
+funcExp();
+var funcExp = function display() {
+  console.log("Will this work?");
+};
+```
+
+- **Output:** `TypeError` because `funcExp` is hoisted as `undefined`, but the function is not assigned yet.
+
+---
+
+### ---------**\***EXTRA ends HERE**\*\***\*\*\*\***\*\***----------
 
 > In simple terms:  
 > ✅ Variable and function **declarations are hoisted**,  
@@ -255,8 +363,6 @@ To understand this strange behavior and **write bug-free code**, we need to lear
 ---
 
 ### 🛠️ **How to implement / see it**
-
-You can experience hoisting by calling a function or accessing a variable **before** it is declared.
 
 ---
 
