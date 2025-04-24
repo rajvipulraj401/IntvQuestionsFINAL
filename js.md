@@ -11,6 +11,26 @@ Ans :- Sir currently i am not able to come up with the right answer to this ques
 
 # **(A)** _Basic :--------_
 
+## Q0.0) What are all falsy values in javascript ?
+
+### 🔥 Here's the full list of **all falsy values in JS**:
+
+--There are total 8 kinds of falsy values
+There are basically 6 kinds of falsy value in javascript :---0 ka bs teen type hai ek -ve wala ek positive wala ek bs big int wla
+
+| Value       | Type      | Description                                              |
+| ----------- | --------- | -------------------------------------------------------- |
+| `false`     | Boolean   | Literally false                                          |
+| `0`         | Number    | The number zero                                          |
+| `-0`        | Number    | Negative zero                                            |
+| `0n`        | BigInt    | BigInt representation of zero                            |
+| `""`        | String    | Empty string                                             |
+| `null`      | Object    | Null value (**Represents intentional absence**)          |
+| `undefined` | Undefined | Undefined value (**Variable declared but not assigned**) |
+| `NaN`       | Number    | Not-a-Number                                             |
+
+---
+
 ### Q0) what is js ?what are different ways you can write js ? what tag we use to define inline js and internal js and external js and what tag we use to link external js file in html ?
 
 ## Q0) What is JavaScript?
@@ -225,13 +245,108 @@ console.log(null === undefined); // false
 
 17)Explain the difference between null and undefined.
 
-18)What are the differences between var, let and const?
+<!-----
 
-## 19)Explain Hoisting in JS.
+  ---------18--------
 
-Of course bhai! Ye question **“Explain…”** type hai, so I’m using your **Format 1** — with proper flow: need → what → how → code. Simple English, interview tone 👇
+--- -->
+
+## 18) What are the differences between `var`, `let`, and `const`?
+
+Ans :-
 
 ---
+
+### ✅ First, the similarity:
+
+`var`, `let`, and `const` are keywords which are used to **declare variables** in JavaScript.
+
+But... there are some **key differences** between them 👇
+
+---
+
+### 🧠 The first major difference is in their: **Scope**
+
+- `var` is **function-scoped**, which means it is only accessible within the function in which it is declared.
+- while`let` and `const` are **block-scoped**, meaning they are accessible only within the {} block in which they are declared.
+
+```js
+function test() {
+  if (true) {
+    var x = 5;
+    let y = 10;
+  }
+  console.log(x); // ✅ 5
+  console.log(y); // ❌ ReferenceError
+}
+```
+
+---
+
+### 🧠 Secondly: **Re-declaration and re-assignment**
+
+- variable declared with `var` **can be re-declared and reassigned** in the same scope.
+- and variable declared with`let` can be **re-assigned** but not **redeclared** in the same scope
+- and variable declared with `const` **can be neither re-declared nor reassigned** (in the same scope).
+
+```js
+var a = 10;
+var a = 20; // ✅ Allowed
+
+let b = 10;
+// let b = 20; ❌ Error
+
+const c = 30;
+// const c = 40; ❌ Error
+```
+
+---
+
+### 🧠 Thirdly: **Hoisting Behavior**
+
+- Another difference is in how they are hoisted
+  - variable declared with`var` is hoisted **and initialized with `undefined`**.
+  - while variable declared with `let` and `const` are hoisted too, **but not initialized** — and they stay in a **Temporal Dead Zone (TDZ)** until the line where they are declared.
+
+```js
+console.log(a); // ✅ undefined
+var a = 5;
+
+console.log(b); // ❌ ReferenceError
+let b = 10;
+```
+
+---
+
+### 📺 Sir, can I share my screen to show this with a side-by-side example?
+
+```js
+function check() {
+  console.log(x); // undefined
+  // console.log(y); // ReferenceError
+  // console.log(z); // ReferenceError
+
+  var x = 10;
+  let y = 20;
+  const z = 30;
+}
+```
+
+---
+
+> 👉 **In short**:
+>
+> - `var` → old-school, function-scoped, re-assignable re-declarable
+> - `let` → modern, block-scoped, re-assignable not re-declarable
+> - `const` → modern, block-scoped, not re-assignable not re-declarable
+
+---
+
+<!-----
+
+  ---------19--------
+
+--- -->
 
 ## 19) Explain Hoisting in JS
 
@@ -445,6 +560,26 @@ clickCounter(); // Total clicks: 2
 clickCounter(); // Total clicks: 3
 ```
 
+```js
+function counter() {
+  let count = 0;
+
+  return function countInner() {
+    count++;
+    return count;
+  };
+}
+const myCounter = counter();
+
+// counter function return kr rha hai ek function aur jab wo returned
+// function ko humlog call krte hai toh wo outer function
+// ka variable access.
+
+console.log(myCounter()); // 1
+console.log(myCounter()); // 2
+console.log(myCounter()); // 3
+```
+
 ```javascript
 function parent() {
   const msg = "I am from function parent";
@@ -531,19 +666,58 @@ Note --The inner function returned by `multiply` retains access to `storedNum` d
 
 ### ✅ **Similarity**
 
-All three — `map()`, `filter()`, and `reduce()` — are **array methods** in JavaScript. which are used to perform array operations. They follow the declarative programming approach where we just specify what we want rather than imperative .
+All three — `map()`, `filter()`, and `reduce()` — are **array methods** in JavaScript. which are used to perform array operations in a **declarative style**. **and they do not mutate the original array** and are ideal for writing concise ,clean and functional code and chaining together .
+
+But they have some differences in their use cases.
 
 ### 🔄 **Difference between `map()`, `filter()`, and `reduce()`**
 
-There are some difference in how we use them
+### 🧠 1. `map()` – **Map method is used to Transform each element and return a new array**
 
-| Feature             | `map()`                                | `filter()`                              | `reduce()`                                   |
-| ------------------- | -------------------------------------- | --------------------------------------- | -------------------------------------------- |
-| **Purpose**         | Transforms each element of the array   | Filters elements based on a condition   | Reduces the array to a single value          |
-| **Return Type**     | Returns a **new array** of same length | Returns a **new array** (maybe shorter) | Returns a **single value** (can be anything) |
-| **Callback Output** | Callback must return transformed value | Callback must return `true` or `false`  | Callback must return accumulated result      |
-| **Original Array**  | Not mutated                            | Not mutated                             | Not mutated                                  |
-| **Use Case**        | Changing values in array (e.g. square) | Filtering users, items, etc.            | Summing numbers, grouping data, etc.         |
+- It takes a **callback function**
+  and the callback function takes three things in the parameter **current element, current index and entire array**.
+- and it performs some operation to each array element and
+- Returns a **new array** with the transformed values.
+
+```js
+const nums = [1, 2, 3];
+const doubled = nums.map((n) => n * 2); // [2, 4, 6]
+```
+
+✅ Use `map()` when: You want to **transform** data.
+
+---
+
+### 🧠 2. `filter()` – **and Filter method is used to filter for elements that satisy a certain condition**
+
+- It also takes a **callback function similar like map method**.
+- and it Returns a **new array** with **only those elements** which return true for the specified condition .
+
+```js
+const nums = [1, 2, 3, 4];
+const evens = nums.filter((n) => n % 2 === 0); // [2, 4]
+```
+
+✅ Use `filter()` when: You want to **select** or **exclude** items based on condition.
+
+---
+
+### 🧠 3. `reduce()` – **on the other hand reduce method is used to Reduce the array to a single value**
+
+- It takes two things in the argument one is a **callback function** and the other is an **initial value of accumulator**.
+
+- The callback function in the reduce method is also known as **accumulator function** .
+
+The callback function inside the reduce method takes **4 thing in the parameter** accumulator , current element, current index and entire array.which is different from map and filter method.
+
+The reduce method just do operation with current element using the accumulator and return us the single value .(not an array unlike map and filter).
+
+```js
+const nums = [1, 2, 3, 4];
+const sum = nums.reduce((acc, val) => acc + val, 0); // 10
+```
+
+✅ Use `reduce()` when: You want to **calculate a single result** (like sum, product, object, etc).
 
 ---
 
@@ -580,15 +754,229 @@ console.log(mapped, filtered, reduced);
 
 22.0)What are rest and spread operators ?
 
+<!-----
+
+  ---------22.1--------
+
+--- -->
+
 22.1)Differentiate between the rest and spread operators in javascript
 
-23)What is a callback function in JavaScript?
+<!-----
+
+  ---------23--------
+
+--- -->
+
+## 23) What is a Callback Function in JavaScript?
+
+---
+
+Ans :--
+
+### 🔍 **Need**
+
+In real-world web apps, many tasks take **some time** — like **getting data from a server**, **reading a file**, or **waiting for the user to click a button**.
+If we don’t handle these properly, our app can **freeze** or stop responding until the task is done.
+So In such cases, we often want to **do something after the task is finished**.  
+For example:
+
+- After data is fetched, we may want to show it on the screen
+- or When a button is clicked, we may want to do something.
+
+so To handle such situations, we use **callback functions**
+
+---
+
+### 📖 **What is it**
+
+A **callback functions** is a type of a function which is passed as an argument to a higher order function (as In JavaScript, functions are first-class objects, and we can pass functions as parameters to other functions and call them inside the other function) . The **callback function** is usually executed after some action has been performed and we want to do something after that action and so in order to perform that action we pass a **callback function**.
+
+`> "Callback" means: **call me back when you're done.**`
+
+---
+
+### 🛠️ **How to implement**
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+```js
+// A basic function that takes a callback
+function greetUser(name, callback) {
+  console.log(`Hi, ${name}`);
+  callback(); // calling the callback
+}
+
+// Define the callback
+function sayBye() {
+  console.log("Bye!");
+}
+
+// Pass the callback to the function
+greetUser("Ravi", sayBye);
+
+// Output:
+// Hi, Ravi
+// Bye!
+```
+
+### Benefit of using callback function.
+
+The main reason of using callback function is that it is **very concise** and by using a callback function we can pass n no function inside our main function so this makes our **function dynamic** as oppose to it being hardcoded for one specific function.
+
+---
+
+Ek simple **calculator** ka example dete hain jisme hum **callback functions** ka use karke `add`, `subtract`, `multiply`, aur `divide` operations karenge. Isse clearly samajh aayega ki callback se function kaise dynamic ban jaata hai.
+
+---
+
+#### 🔧 JavaScript Calculator Example Using Callback Functions
+
+```javascript
+// Main calculator function that takes two numbers and a callback operation
+function calculator(a, b, operation) {
+  return operation(a, b);
+}
+
+// Different callback functions for each operation
+function add(x, y) {
+  return x + y;
+}
+
+function subtract(x, y) {
+  return x - y;
+}
+
+function multiply(x, y) {
+  return x * y;
+}
+
+function divide(x, y) {
+  if (y === 0) {
+    return "Cannot divide by zero!";
+  }
+  return x / y;
+}
+
+// Using calculator with different operations
+console.log("Addition:", calculator(10, 5, add)); // ➝ 15
+console.log("Subtraction:", calculator(10, 5, subtract)); // ➝ 5
+console.log("Multiplication:", calculator(10, 5, multiply)); // ➝ 50
+console.log("Division:", calculator(10, 5, divide)); // ➝ 2
+```
+
+---
+
+### 📌 Callback Use Karne Ka Fayda Yahaan:
+
+1. **Single calculator function** banayi — har operation ke liye alag se function likhne ki zarurat nahi.
+2. **Dynamic behavior** — calculator function har tarah ka calculation kar sakta hai bas callback badal do.
+3. **Code reusable & clean** — naye operation add karne hain? Sirf ek naya function bana ke callback mein pass kar do.
+
+---
+
+**Why Use Callbacks?**
+
+- Callbacks make functions more flexible and reusable by allowing different functions to be executed at different times without modifying the higher-order function's code.
+
+> ✅ Callback functions allow **control over flow**.  
+> ✅ Used heavily in **event handling**, **timers**, **APIs**, and **functional programming**.  
+> ❌ But they can cause **callback hell** — that’s why promises and async/await were introduced later.
+
+---
+
+<!-----
+
+  ---------23.1----------
+
+--- -->
+
+## 23.1) What is a Higher-Order Function in JavaScript?
+
+Ans:---
+
+---
+
+### 🔍 **Need**
+
+In JavaScript, functions are **first-class objects**, which means they can be treated like any other data type — assigned to variables, passed as arguments, or returned from other functions.
+
+Now, when building real-world applications, sometimes we want to write code that is more **flexible**, **reusable**, and **cleaner** by letting functions **work with other functions** — for example, passing a function to customize behavior or returning a function for delayed execution.
+
+To do this, we need **Higher-Order Functions**
+
+---
+
+### 📖 **What is it**
+
+A **Higher-Order Function (HOF)** is a function that:
+
+- **Takes one or more functions as arguments**, or
+- **Returns a function as its result**
+
+Basically, it’s a function that **operates on functions**, either by receiving them or returning them.
+
+---
+
+### 🛠️ **How to implement**
+
+You can create HOFs by accepting functions as parameters or returning functions from inside other functions.
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+\*_Show the example of map method sort method koi bhi inbuild function jo ek callback function argument me leta hai bs hogya AND APNA SE BHI KRKE DIKHAO CALLBACK FUNCTION USE_
+
+- **Example:**
+
+  ```javascript
+  function higherOrderFunction(callback) {
+    callback();
+  }
+
+  function myCallback() {
+    console.log("I am a callback function");
+  }
+
+  higherOrderFunction(myCallback);
+  ```
+
+In this example:
+
+- `myCallback` is the **callback function** because it is passed as an argument to `higherOrderFunction`.
+- `higherOrderFunction` is the **higher-order function** because it takes another function (`myCallback`) as an argument.
+
+---
+
+### Key Points:
+
+- A callback function is not necessarily called inside another function; it is passed to another function to be called later.
+
+---
+
+### Benefits of using callback function
+
+> ✅ Higher-Order Functions help in **abstracting behavior**, **code reuse**, and **functional programming** patterns.  
+> ✅ Common examples in JS include built-in methods like `.map()`, `.filter()`, and `.reduce()`, which all take functions as arguments.
+
+---
+
+<!-----
+
+  ---------24--------
+
+--- -->
 
 24)Explain array destructuring and object destructuring in JavaScript.
 
-25)Describe the features described in ES6.
+<!-----
 
----
+  ---------25--------
+
+--- -->
+
+25)Describe the features described in ES6.
 
 <!-----
 
@@ -602,16 +990,20 @@ console.log(mapped, filtered, reduced);
 
 ### 🔍 **Need**
 
-in JavaScript, when we copy an object or an array, sometimes the changes in the copied version also affect the original one. — which is not expected. and in order to understand why this happens, we need to understand the **difference between shallow copy and deep copy**.
+In JavaScript, when we copy an object or an array, sometimes the changes in the copied version also affect the original one — which is not expected. And in order to understand why this happens, we need to understand the **difference between shallow copy and deep copy**.
 
 ---
 
 ### 📖 **What is it**
 
-A **shallow copy** means copying just the reference of the variable which is holding the address of **non-primitive data type** and in case of object it means copying only the **top-level properties** and If the object contains nested objects, those are **still shared** between the original and the copy.
-. On the other hand **deep copy** means creating a new object(array or object) and then manually copying each element of that object into it so that changing the copied object do not change the original object .
+A **shallow copy** means copying just the reference of the variable which is holding the address of **non-primitive data type**, and in case of object it means copying only the **top-level properties**. If the object contains nested objects, those are **still shared** between the original and the copy.
 
-**Note** ---`In js we can use spread operator to solve shallow copying problem for the first layer of the objects but if the object is deeply nested then for this we have to use Object.stringify and Object.Parse and some other libraries like Lodas because spread operator also does shallow copying in the case of nested object as it just copies the reference of them.`
+On the other hand, a **deep copy** means creating a new object (array or object) and then manually copying each element of that object into it, so that changing the copied object does not affect the original object.
+
+**Note** —  
+In JS we can use the **spread operator** to solve shallow copying problems for the first layer of objects. But if the object is deeply nested, we need to use `JSON.stringify()` and `JSON.parse()` or libraries like Lodash, because spread also does shallow copying in the case of nested object as — it just copies references of nested objects.
+
+> 🔥 **Bonus:** In modern JavaScript (ES2022+), we also have a native method called `structuredClone()` that can perform deep cloning and supports more data types like `Date`, `Map`, `Set`, etc., unlike JSON methods.
 
 ---
 
@@ -628,17 +1020,24 @@ const shallow = { ...obj1 };
 // Deep Copy using JSON
 const deep = JSON.parse(JSON.stringify(obj1));
 
+// Deep Copy using structuredClone (modern way)
+const deepModern = structuredClone(obj1);
+
 shallow.boy.cat = 100;
 console.log(obj1.boy.cat); // 100 (shallow copy affected original)
 
 deep.boy.cat = 200;
 console.log(obj1.boy.cat); // 100 (deep copy didn’t affect original)
+
+deepModern.boy.cat = 300;
+console.log(obj1.boy.cat); // 100 (structuredClone also didn’t affect original)
 ```
 
 ---
 
 > ✅ Use **shallow copy** when you’re sure the object has no nested structure.  
-> ✅ Use **deep copy** when your object has **nested objects/arrays** and you want full independence.
+> ✅ Use **deep copy** when your object has **nested objects/arrays** and you want full independence.  
+> ✅ Use `structuredClone()` in modern environments for better performance and data-type support than JSON METHODS
 
 ---
 
@@ -714,7 +1113,78 @@ Ans :-- string
 
 ## -----fe 103 ka questions:---- (watch videos and apna notes)
 
-44)What are Event Listeners?
+<!-----
+
+  ---------19--------
+
+--- -->
+
+## 44) What are Event Listeners?
+
+Ans :-
+
+---
+
+### 🔍 **Need**
+
+In real-world web apps, users interact with the UI by **clicking buttons**, **typing in inputs**, **hovering over elements**, etc.  
+To make our web page **respond** to these actions — like showing a popup when a button is clicked — we need a way to **listen to those actions in javascript**.
+
+so for this we need something known as **Event Listeners** .
+
+---
+
+### 📖 **What is it**
+
+An **Event Listener** is a function in JavaScript that **waits for a specific event to happen** (like a click, keypress, hover, etc.) on a specific element — and **runs a function when that event occurs**.
+
+It's like telling the browser:
+
+> “Hey, when the user clicks this button, call this function.”
+
+---
+
+### 🛠️ **How to implement**
+
+We use the `.addEventListener()` method to attach an event to any DOM element.
+
+```js
+const btn = document.getElementById("myBtn");
+
+btn.addEventListener("click", function () {
+  alert("Button clicked!");
+});
+```
+
+- `"click"` is the event type.
+- The function inside will run **only when** the button is clicked.
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+```html
+<button id="greetBtn">Greet Me</button>
+
+<script>
+  const greetBtn = document.getElementById("greetBtn");
+
+  greetBtn.addEventListener("click", () => {
+    console.log("Hello, User!");
+  });
+</script>
+```
+
+🧠 Pro Tip:  
+You can use Event Listeners for **mouse events, keyboard events, input events**, and even **custom events** to create dynamic, interactive web experiences.
+
+---
+
+<!-----
+
+  ---------19--------
+
+--- -->
 
 45)What is an event loop? How does JavaScript event loop work and how does it contribute to the language's asynchronous nature? Can you explain the concept of the call stack and the message queue in this context?
 

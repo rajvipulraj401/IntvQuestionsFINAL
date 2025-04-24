@@ -223,3 +223,77 @@ So in conclusion
 ---
 
 ### Q3)
+
+### 1. CSS Attribute Selector for Specific Attribute and Value
+
+- **Syntax:**
+
+  ```css
+  element[attribute="value"] {
+    /* styles */
+  }
+  ```
+
+- **Example:**
+
+  ```css
+  input[type="text"] {
+    border: 1px solid blue;
+  }
+  ```
+
+- **Select elements with attribute regardless of value:**
+  ```css
+  element[attribute] {
+    /* styles */
+  }
+  ```
+
+---
+
+### 2. CSS Pseudo-class to Target Only the First Child
+
+- **`:first-child`**  
+  Selects **only the first child element** of its parent.
+
+- **Example:**
+
+  ```css
+  p:first-child {
+    color: red;
+  }
+  ```
+
+- **Difference:**
+  - `:first-child` — selects element if it is first child of parent (any type)
+  - `:first-of-type` — selects first element of that specific type inside parent
+
+---
+
+### 3. Other Common Child-related CSS Pseudo-classes
+
+| Selector               | Description                                     | Example                            |
+| ---------------------- | ----------------------------------------------- | ---------------------------------- |
+| `:first-child`         | First child of its parent                       | `div:first-child`                  |
+| `:last-child`          | Last child of its parent                        | `p:last-child`                     |
+| `:nth-child(n)`        | nth child of its parent (n = number or formula) | `li:nth-child(3)` (3rd child)      |
+| `:nth-last-child(n)`   | nth child from the end                          | `tr:nth-last-child(2)` (2nd last)  |
+| `:first-of-type`       | First child of its type within parent           | `p:first-of-type`                  |
+| `:last-of-type`        | Last child of its type within parent            | `span:last-of-type`                |
+| `:nth-of-type(n)`      | nth child of its type within parent             | `td:nth-of-type(4)`                |
+| `:nth-last-of-type(n)` | nth child of its type from the end              | `li:nth-last-of-type(1)` (last li) |
+
+---
+
+### Practice Question:
+
+**Which CSS pseudo-class would you use to select the third child element of its parent, regardless of its type?**
+
+a) `:third-child`  
+b) `:nth-child(3)`  
+c) `:nth-of-type(3)`  
+d) `:first-child`
+
+---
+
+Let me know if you want the answer or explanations!
