@@ -177,16 +177,51 @@ So There are **three main ways** to add JavaScript to an HTML page:
 
 13.1) what is an Api Endpoints and what does it includes ?
 
-14. What is fetch API in Javascript? How does it handle JSON responses?
+<!-----
+
+  ---------14--------
+
+--- -->
+
+14.What is Fetch API in JavaScript? How does it handle JSON responses?
+
+---
+
+### 🔍 **Need**
+
+In modern web apps, we often need to **communicate with servers** to fetch or send data — like getting product listings, sending form data, etc.  
+To do this, JavaScript provides the inbuild **Fetch API**, which is a modern way to make HTTP requests in javascript without relying on any external libraries like axios.
+
+---
+
+### 📖 What is Fetch API?
+
+The **Fetch API** is a built-in JavaScript feature that allows us to make network requests (like GET, POST) to servers and work with the responses using **Promises**.
+
+SO when we call the `fetch` method with a URL . we get in return a **Promise** that will either be **fulfilled** or **rejected** based on the response coming from the server . and if it gets resolved it resolves to a **Response object**, which contains info like status, headers, and body.
+
+---
+
+### 📦 How does it handle JSON?
+
+So ,By default the `fetch()` method returns a **Response object**, not the actual data.  
+To read JSON data from the response, we call the `.json()` method on the response, which also returns us a **Promise** and we have to handle that to get our original data.
+
+---
+
+### 📺 Sir, can I share my screen to show this with a live API?
+
+<!-- fetch("https://jsonplaceholder.typicode.com/posts/1") -->
+<!-- fetch("https://api.example.com/users") -->
 
 ```js
 const response = fetch("https://jsonplaceholder.typicode.com/todos")
-  .then((data) => {
-    // .json() ko .then() ke andar handle kar rahe ho
-    return data.json();
-  })
   .then((res) => {
-    console.log(res); // Yahaan pe real JSON data aayega
+    // .json() ko .then() ke andar handle kar rahe ho
+    return res.json();
+  })
+  .then((data) => {
+    console.log(data); // Yahaan pe real JSON data aayega
   })
   .catch((err) => {
     console.log("Error:", err); // Agar koi error ho, toh yahaan handle hoga
@@ -208,6 +243,21 @@ const handleMethod = async () => {
 
 handleMethod();
 ```
+
+---
+
+### ✅ Summary
+
+| Feature                | Explanation                                           |
+| ---------------------- | ----------------------------------------------------- |
+| **Purpose**            | Used to make HTTP requests (GET, POST, etc.)          |
+| **Returns**            | A Promise that resolves to a `Response` object        |
+| **To get JSON data**   | Use `.json()` method on the response                  |
+| **Modern alternative** | Cleaner and Promise-based, replacing `XMLHttpRequest` |
+
+---
+
+> 🔥 Pro Tip: Always handle `.json()` with `await` or `.then()` because it’s asynchronous too!
 
 ----read in fe 102 lect 5 onwards notes ----
 
@@ -1624,15 +1674,19 @@ sessionStorage.removeItem("token");
 
 51)what is the difference between event propagation and event deleegation , event bubbling ? (javascript.info and web.dev)
 
+<!-----
+
+  ---------52--------
+
+--- -->
+
 52)How to do form validations make notes on it you know it just speak in your words and match with chatgpt ?
 
-53. How javascript handle asynchronous code ?
+<!-----
 
-Ans :----
+  ---------53--------
 
-Sure, here's the answer following the **Format 1** template:
-
----
+--- -->
 
 ## 53. How does JavaScript handle asynchronous code?
 
@@ -1780,66 +1834,80 @@ console.log("hello late hogya");
 
 ---
 
+<!-----
+
+  ---------54--------
+
+--- -->
+
 54. What is the difference between type coercion and type conversion ?
 
-55. What is the difference between pass by value and pass by reference ?
+<!-----
 
-IntvAnswer -- pass by value and pass by reference occur whenever we are passing a data type to a function to make its copy .
+  ---------55--------
 
-**Pass-by-Value:**
+--- -->
 
-for example - when we pass a primitive data type its value is always passed by value which means a new copy of that value is created and the value is assigned .
+## 55) What is the difference between Pass-by-Value and Pass-by-Reference?
 
-- It's like giving someone your notes, and they create their own notes by copying yours. but Any changes they make to their notes will not affect your original notes.
+---
 
-**While Pass-by-Reference:**
+### ✅ **Similarity First**
 
-While pass reference occur whenver dealing with non-primitive datatype likes arrays object cause its value is passed as reference which means its value is not copied its location is copied .
+## Both Pass-by-Value and Pass-by-Reference are **ways of passing data** into a function in JavaScript — whenever we pass a variable (like a number, string, object, or array), JS needs to decide whether it's passing a **copy of the value** or a **reference to the original memory**.
 
-- Its like giving someone keys to your house and when some one go to your location in this case my house and do some changes this will changes will show to my house because they have done changes in my house.
+### 🔄 **Difference**
 
---
+Now here’s the **main difference** between the two:
 
-Detail Ans ---
+---
 
-#### Pass-by-Value vs. Pass-by-Reference
+1. **Pass-by-Value**
+   - Happens with **primitive types** (like `Number`, `String`, `Boolean`, `undefined`, `null`, `Symbol`, `BigInt`) so when we pass a primitive data type to a function
+   - A **copy of the original value** is passed to the function. So changes made inside the function do **not affect** the original variable. This type of copy is known as deep copy .
+   - ✅ Example: It's like giving someone your notes, and they create their own notes by copying yours. but Any changes they make to their notes will not affect your original notes.
 
-**Pass-by-Value**:
+---
 
-- **Definition**: Primitive data types (e.g., numbers, strings) are passed by value. Changes to the value inside the function do not affect the original variable.
-- **Example**:
-  ```javascript
-  function add(num) {
-    num = num + 10;
-    console.log(num); // Output: 15
-  }
-  var num = 5;
-  add(num);
-  console.log(num); // Output: 5
-  ```
+2. **Pass-by-Reference**
+   While pass reference Happens whenver dealing with **non-primitive types** (like `Object`, `Array`, `Function`)cause instead of its value
+   - A **reference to the original object** is passed. So if the function changes the object, the changes are reflected in the original object also. This type of copyis known as shallow copy as only the reference is copied instead of copying the entire value.
+   - ✅ Example: Its like giving someone keys to your house and when some one go to your location in this case my house and do some changes this changes will show to my house because they have done changes in my house.
 
-/\*This is because a copy of num was passed in the function not the original reference was passed here we passing the value not passing the reference.
+---
 
-But in case of Non-primitive data type it will be passed as passed by reference that means any changes we make to the copied item will also make changes to the original item .
-\*/
+### 📺 Sir, can I share my screen to show this with an example?
 
-````
-
-**Pass-by-Reference**:
-- **Definition**: Non-primitive data types (e.g., objects, arrays) are passed by reference. Changes to the reference affect the original object.
-- **Example**:
-```javascript
-function modifyObject(obj) {
-  obj.name = "Austin";
+```js
+// 🔹 Pass-by-Value
+let a = 10;
+function update(x) {
+  x = x + 5;
 }
-let obj = { name: "Kevin" };
-modifyObject(obj);
-console.log(obj.name); // Output: Austin
-````
+update(a);
+console.log(a); // 👉 10 (original not changed)
 
-**Handling Pass-by-Reference Issues**:
+// 🔹 Pass-by-Reference
+let person = { name: "John" };
+function rename(obj) {
+  obj.name = "Doe";
+}
+rename(person);
+console.log(person.name); // 👉 "Doe" (original object changed)
+```
 
-- **Spread Syntax**: Creates a shallow copy of the original object, allowing you to work with a new object without modifying the original one. But this only work for normal objects and fails for the nested object as spread syntax also do shallow copy .
+---
+
+**Solution**: --
+
+In order to deal with shallow copy in Objects in javascript we have some ways
+
+1. json.stringify and json.parse
+
+2. structuredClone() // note this is a global method.
+
+3. - **Spread Syntax**: Creates a shallow copy of the original object, allowing you to work with a new object without modifying the original one. But this only work for normal objects and fails for the nested object as spread syntax also do shallow copy .
+
 - **Example**:
   ```javascript
   let obj = { name: "Kevin" };
@@ -1850,3 +1918,31 @@ console.log(obj.name); // Output: Austin
   ```
 
 ---
+
+```js
+const obj1 = { arun: 1, boy: { cat: 2 } };
+
+// Shallow Copy using spread
+const shallow = { ...obj1 };
+
+// Deep Copy using JSON
+const deep = JSON.parse(JSON.stringify(obj1));
+
+// Deep Copy using structuredClone (modern way)
+const deepModern = structuredClone(obj1);
+
+shallow.boy.cat = 100;
+console.log(obj1.boy.cat); // 100 (shallow copy affected original)
+
+deep.boy.cat = 200;
+console.log(obj1.boy.cat); // 100 (deep copy didn’t affect original)
+
+deepModern.boy.cat = 300;
+console.log(obj1.boy.cat); // 100 (structuredClone also didn’t affect original)
+```
+
+<!-----
+
+  ---------56--------
+
+--- -->
