@@ -1929,7 +1929,7 @@ const shallow = { ...obj1 };
 const deep = JSON.parse(JSON.stringify(obj1));
 
 // Deep Copy using structuredClone (modern way)
-const deepModern = structuredClone(obj1);
+const deepModern = structuredClone(obj1); // THIS IS A GLOBAL method not method of any object or array so use like this only
 
 shallow.boy.cat = 100;
 console.log(obj1.boy.cat); // 100 (shallow copy affected original)
