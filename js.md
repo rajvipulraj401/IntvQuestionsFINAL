@@ -179,6 +179,36 @@ So There are **three main ways** to add JavaScript to an HTML page:
 
 14. What is fetch API in Javascript? How does it handle JSON responses?
 
+```js
+const response = fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((data) => {
+    // .json() ko .then() ke andar handle kar rahe ho
+    return data.json();
+  })
+  .then((res) => {
+    console.log(res); // Yahaan pe real JSON data aayega
+  })
+  .catch((err) => {
+    console.log("Error:", err); // Agar koi error ho, toh yahaan handle hoga
+  });
+
+console.log(response); // Yeh abhi bhi Promise hi log karega
+
+/* ------------method 2-------- */
+const handleMethod = async () => {
+  try {
+    const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const response = await data.json();
+    console.log(response);
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+handleMethod();
+```
+
 ----read in fe 102 lect 5 onwards notes ----
 
 ----js 101 ka questions----
@@ -752,7 +782,117 @@ console.log(mapped, filtered, reduced);
 
 --- -->
 
-22.0)What are rest and spread operators ?
+## 22.0) What are the Rest and Spread Operators?
+
+---
+
+### 🔍 **Need**
+
+In real-world JavaScript projects, we often face two types of problems:
+
+1. Sometimes, we don’t know **how many values** a user will pass — like in a function that accepts any number of arguments (e.g. `sum(1, 2, 3, 4, ...)`).
+2. and Other times, when we need to **expand** arrays or objects — for example, when copying, merging, or passing data into functions.
+
+So, in order to do this quickly and efficiently, JavaScript (in ES6) introduced the **Rest operator** and **Spread operator**.  
+Both use the triple-dot `...` syntax, but they have **different use cases**.
+
+---
+
+### 📖 What is it
+
+---
+
+1. **The first major difference is their purpose.**
+
+(**R**) - The **rest operator** is used to **gather multiple values into a single array or object** —
+we mostly use the rest parameter in a function parameter, it collects all the various arguments passed to it .The arguments that we passed as comma-separated into an array or object.
+
+     for example :-- If we pass numbers from 1 to 10 in a function to calculate the sum, the rest parameter will collect all the elements into an array.
+
+(**S**) - On The other hand the **spread operator** is Used to **spread the elements out of an array or object into another variables** .
+
+- For Example: In the same example above, we get all the elements in an array. Now, we can use the spread operator to destructure them into different variables. like if we have two array and then we want to create another array containing the two elements and with this new array we can use spread syntax and get all of them in one new array by spreading them in one
+
+---
+
+2. **Secondly, their use cases differ.**
+
+   - Use **rest** when you're handling **dynamic function arguments**, like when you don’t know how many values the user will pass.
+   - Use **spread** when you want to **copy, merge, or pass values**, like cloning arrays or spreading props in React.
+
+---
+
+3. **Their placement also matters.**
+
+- Also The **rest operator** has to be the **last parameter in function definitions and in destructring**
+  The spread operator, on the other hand, **can be used anywhere (in start mid ,end anywhre)** — such as in function calls, or spreading array or object .
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Example :-- **(rest operator)**
+
+```js
+function sum(...args) {
+  return args.reduce((a, b) => a + b, 0);
+}
+
+const [a, ...rest] = [1, 2, 3]; // a = 1, rest = [2, 3]
+
+const person = {
+  name: "John",
+  age: 30,
+  country: "USA",
+};
+
+// Destructuring with rest to collect remaining properties into an object
+const { name, age, ...rest } = person;
+
+console.log(name); // 'John'
+console.log(rest); // { country: 'USA' }
+
+const { x, ...others } = { x: 10, y: 20, z: 30 }; // x = 10, others = { y: 20, z: 30 }
+```
+
+Example **(spread operator)**
+
+```js
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 }; // { a: 1, b: 2, c: 3 }
+
+const nums = [1, 2, 3];
+Math.max(...nums); // Same as Math.max(1, 2, 3)
+```
+
+---
+
+> 👉 So the key difference is:  
+> **Rest = Gather** into one (for input)  
+> **Spread = Expand** out (for output)
+
+---
+
+### 🧠 **Quick Tips**
+
+- **Rest parameter:**
+
+  - Used **in function definitions** to collect multiple arguments into an array.
+  - Must be the **last parameter**.
+  - Always collects into an **array**.in the function parameter
+  - And in case of destructring into any variable use at last and there it can get object while destructring obje and array while destructing arr to get the rest of obj or rest of arr in it.
+
+- **Spread operator:**
+  - Used **when calling functions**, or inside **arrays/objects** to expand elements or properties.
+  - Can be used **anywhere** (no positional restriction).
+  - Works for **arrays and objects**.
+
+---
+
+---
 
 <!-----
 
@@ -760,7 +900,163 @@ console.log(mapped, filtered, reduced);
 
 --- -->
 
-22.1)Differentiate between the rest and spread operators in javascript
+## 22.1) Differentiate between the rest and spread operators in JavaScript?
+
+---
+
+### ✅ **Similarity first**
+
+Both **rest** and **spread** operators are represented by three dots (...)  
+They help us **work with arrays, objects, or function arguments** in a flexible way. Despite being represented by **same syntax** —
+, they have differenet use cases.
+
+---
+
+### 🔄 **But there are some key differences between them**:
+
+---
+
+1. **The first major difference is their purpose.**
+
+(**R**) - The **rest operator** is used to **gather multiple values into a single array or object** —
+we mostly use the rest parameter in a function parameter, it collects all the various arguments passed to it .The arguments that we passed as comma-separated into an array or object.
+
+     for example :-- If we pass numbers from 1 to 10 in a function to calculate the sum, the rest parameter will collect all the elements into an array.
+
+(**S**) - On The other hand the **spread operator** is Used to **spread the elements out of an array or object into another variables** .
+
+- For Example: In the same example above, we get all the elements in an array. Now, we can use the spread operator to destructure them into different variables. like if we have two array and then we want to create another array containing the two elements and with this new array we can use spread syntax and get all of them in one new array by spreading them in one
+
+---
+
+2. **Secondly, their use cases differ.**
+
+   - Use **rest** when you're handling **dynamic function arguments**, like when you don’t know how many values the user will pass.
+   - Use **spread** when you want to **copy, merge, or pass values**, like cloning arrays or spreading props in React.
+
+---
+
+3. **Their placement also matters.**
+
+- Also The **rest operator** has to be the **last parameter in function definitions and in destructring**
+  The spread operator, on the other hand, **can be used anywhere (in start mid ,end anywhre)** — such as in function calls, or spreading array or object .
+
+---
+
+**So in Conclusion:**
+
+- `Use the rest operator when we have multiple arguments passed to a function and we want to collect them in one variable.`
+- **and Use the spread operator when we want to destructure all the elements from an array into variables or merge and create a new array with another array.**
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Example :-- **(rest operator)**
+
+```js
+function sum(...args) {
+  return args.reduce((a, b) => a + b, 0);
+}
+
+const [a, ...rest] = [1, 2, 3]; // a = 1, rest = [2, 3]
+
+const { x, ...others } = { x: 10, y: 20, z: 30 }; // x = 10, others = { y: 20, z: 30 }
+```
+
+Example **(spread operator)**
+
+```js
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 }; // { a: 1, b: 2, c: 3 }
+
+const nums = [1, 2, 3];
+Math.max(...nums); // Same as Math.max(1, 2, 3)
+```
+
+---
+
+> 👉 So the key difference is:  
+> **Rest = Gather** into one (for input)  
+> **Spread = Expand** out (for output)
+
+---
+
+<!-----
+
+  ---------22.2--------
+
+--- -->
+
+## 22.2) Diff in working of Spread Syntax with Objects and Arrays ?
+
+**Objects**:
+
+- **Explanation**: When spreading an object, if a property already exists, it updates the property with the new value; otherwise, it adds the new property.
+- **Example**:
+
+  ```javascript
+  const existingUser = {
+    id: 123,
+    name: "Alex Johnson",
+    email: "Alex.johnson@ex.com",
+    age: 28,
+    membershipStatus: "active",
+  };
+
+  const updatedInfo = {
+    email: "alexj@example.net",
+    age: 29,
+    membershipStatus: "premium",
+  };
+
+  let finalObj = { ...existingUser, ...updatedInfo };
+  console.log(finalObj);
+  ```
+
+**Output:**
+
+```javascript
+{
+    id: 123,
+    name: "Alex Johnson",
+    email: "alexj@example.net",
+    age: 29,
+    membershipStatus: "premium"
+}
+```
+
+**In Arrays**:
+
+- When spreading arrays, elements are combined into a new array. Each element is added in the order it appears, without any special handling for existing values.
+
+**Example**:
+
+```javascript
+const fruits = ["apple", "banana"];
+const additionalFruits = ["cherry", "date"];
+
+// Adding new elements to the beginning and end of the array
+const allFruits = ["kiwi", ...fruits, "mango", ...additionalFruits];
+console.log(allFruits);
+```
+
+**Output**:
+
+```javascript
+["kiwi", "apple", "banana", "mango", "cherry", "date"];
+```
+
+**Explanation**:
+
+- Arrays are combined by simply appending the elements in order, so there is no concept of overwriting like objects.
+
+---
+
+Now why this happens in case of objects ?
+
+Ans --- In case of array it merge because there we follow concept of indexing and in case of object we follow the concept of naming so if the property name exists update it else add it.
 
 <!-----
 
@@ -976,7 +1272,36 @@ In this example:
 
 --- -->
 
-25)Describe the features described in ES6.
+25)Describe the features described in ES6. ❌
+
+Ans -- ES6, also known as ECMAScript 2015, introduced several new features and improvements to the JavaScript language.
+
+For Example :--
+
+1. Introduction to two new keywords let and const: ES6 introduced block-scoped variables using the let and const keywords. let allows declaring variables that are limited to the block scope, while const is used for declaring constants that cannot be reassigned.
+
+2. Arrow Functions: Arrow functions provide a more concise syntax for writing function expressions. They have a shorter syntax, lexical this binding, and implicit return for one-liner functions.
+
+3. Introduction to Template Literals: Template literals allow embedding expressions inside string literals using backticks (`). This feature provides an easier way to concatenate strings and variables, making the code more readable.
+
+4. Introduction to Destructuring : Destructuring allows extracting values from arrays or objects into individual variables. It provides a concise way to assign values and access nested properties.
+
+5. Spread Operator: The spread operator (...) allows expanding elements of an iterable (like an array or string) into individual elements. It can be used for array concatenation, function arguments, and object cloning.
+
+6. Promises: Promises provide a cleaner way to handle asynchronous operations. It solved the problem of callback Hell. They represent the eventual completion (or failure) of an asynchronous operation and allow chaining multiple asynchronous operations together.
+
+Classes: ES6 introduced class syntax for creating objects with a constructor and methods. It provides a more familiar syntax for defining classes and inheritance in JavaScript.
+
+Modules: ES6 introduced a standardized module system using the import and export keywords. Modules allow organizing code into separate files and provide better encapsulation and reusability.
+
+Default Parameters: ES6 allows defining default values for function parameters. If a parameter is not provided, the default value will be used instead.
+Enhanced Object Literals: ES6 introduced enhancements to object literals, including shorthand property and method definitions, computed property names, and the ability to define setters and getters.
+
+These are just a few of the many features introduced in ES6. These additions have significantly improved the JavaScript language, making it more powerful, expressive, and easier to work with.
+
+---
+
+# Note --_Read more about Es6 in jonas copy and also about all different function in his copy_
 
 <!-----
 
@@ -1041,13 +1366,41 @@ console.log(obj1.boy.cat); // 100 (structuredClone also didn’t affect original
 
 ---
 
+Exp2 :--
+
+```js
+// const message = 'Hello world' // Try edit me
+
+// // Update header text
+// document.querySelector('#header').innerHTML = message
+
+// // Log to console
+// console.log(message)
+
+const arr = [2, 345, 6];
+const arr2 = arr;
+console.log(arr);
+// arr2[1] = 3;
+// console.log(arr)
+const arr3 = JSON.parse(JSON.stringify(arr));
+//this way we do deep copy
+console.log(arr3);
+arr3[1] = "lan";
+console.log(`arr1 ${arr}`);
+console.log(`arr3 ${arr3}`);
+
+const arr4 = structuredClone(arr);
+
+//This is a global method not any method specific to array
+
+console.log(arr4);
+```
+
 <!-----
 
-  ---------26.1--------
+  ---------27--------
 
 --- -->
-
-26.1)Can you explain the difference between a shallow copy and a deep copy of an object in JavaScript?
 
 27)What are the differences between arrow functions and function expressions in JS?
 
@@ -1275,4 +1628,225 @@ sessionStorage.removeItem("token");
 
 53. How javascript handle asynchronous code ?
 
+Ans :----
+
+Sure, here's the answer following the **Format 1** template:
+
+---
+
+## 53. How does JavaScript handle asynchronous code?
+
+---
+
+### 🔍 **Need**
+
+In modern web applications, JavaScript often needs to handle **tasks like fetching data** from a server, reading files, or waiting for user input. Since these tasks can take time, we **can't let the program freeze** waiting for them to complete.  
+JavaScript handles this situation by using **asynchronous programming**, allowing the program to continue running while waiting for a task to finish.
+
+---
+
+Note ---
+`No callback = no action, but it does not cause the code to block. Missing a callback doesn't make the code synchronous or blocking, it just means the event or timeout won't trigger any specific action`
+
+**Blocking occurs only with synchronous code**, such as an **infinite loop**, **`prompt()`**, or **`alert()`**, which **pause the execution of the code** until that specific line or operation is completed. On the other hand, **asynchronous code** (like **`setTimeout()`**, **`fetch()`**, or event listeners) is **non-blocking**, meaning it allows the program to continue executing other tasks while waiting for an operation to finish.
+
+---
+
+---
+
+### 📖 What is it
+
+JavaScript handles **asynchronous code** by allowing some operations to run **in the background**, without blocking the main thread. This is crucial for tasks like fetching data, timers, or handling UI events, ensuring that the user experience isn’t interrupted.
+
+JavaScript provides **three main approaches** for handling asynchronous operations:
+
+1. **Callbacks**: Functions passed into other functions that get executed once an asynchronous task finishes.
+2. **Promises**: A **Promise** is an object that holds the response coming from a future value, like the response coming from a server when we call the `fetch` method with a URL.and we get in return a promise that will either be **fulfilled** or **rejected** based on the response coming from the server .
+
+3. **Async/Await**: Syntactic sugar over promises, making asynchronous code look and behave more like synchronous code.
+
+---
+
+### 🛠️ How to implement
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+#### 1. **Callbacks**
+
+```js
+setTimeout(() => {
+  console.log("This is a callback!");
+}, 1000); // Will run after 1 second
+```
+
+#### 2. **Promises**
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  const success = true;
+  if (success) {
+    resolve("Task completed successfully!");
+  } else {
+    reject("Task failed.");
+  }
+});
+
+myPromise
+  .then((result) => console.log(result)) // Success
+  .catch((error) => console.log(error)); // Failure
+```
+
+#### 3. **Async/Await**
+
+```js
+const fetchData = async () => {
+  let data = await fetch("https://api.example.com/data");
+  let jsonData = await data.json();
+  console.log(jsonData);
+};
+
+fetchData();
+```
+
+---
+
+EXAMPLE 2 ----(MY PRACTISE)
+
+```js
+// Callback Example
+setTimeout(() => {
+  console.log("Callback: Data fetched");
+}, 2000);
+
+// Promise Example
+const dataPromise = new Promise((resolve) => {
+  setTimeout(() => resolve("Promise: Data fetched"), 2000);
+});
+dataPromise.then(console.log);
+
+// Async/Await Example
+const fetchData = async () => {
+  const result = await new Promise((resolve) =>
+    setTimeout(() => resolve("Async/Await: Data fetched"), 2000)
+  );
+  console.log(result);
+};
+fetchData();
+```
+
+---
+
+### Summary
+
+- **Callbacks**: Handled by passing functions to be executed later, but can lead to **callback hell** if nested deeply.
+- **Promises**: Handle asynchronous flow using `.then()` and `.catch()`, making the code more readable.
+- **Async/Await**: Makes promises behave like synchronous code, providing a cleaner syntax.
+
+> **Pro Tip**: **Async/Await** is the most modern and preferred way for handling asynchronous code due to its simplicity.
+
+---
+
+Example 2
+
+```js
+const handleFunction = async function () {
+  try {
+    const data = await new Promise((resolve, reject) => {
+      setTimeout(function () {
+        // resolve("Hello Jaanu");
+        reject("bye jaanu");
+      }, 2000);
+    });
+
+    return data;
+  } catch (err) {
+    // console.log(err);
+    return err;
+  }
+};
+
+const handleValue = async function () {
+  try {
+    const val = await handleFunction();
+    console.log(val);
+  } catch (err) {
+    console.log(err);
+  }
+};
+// console.log(handleValue())
+handleValue();
+console.log("hello late hogya");
+```
+
+---
+
 54. What is the difference between type coercion and type conversion ?
+
+55. What is the difference between pass by value and pass by reference ?
+
+IntvAnswer -- pass by value and pass by reference occur whenever we are passing a data type to a function to make its copy .
+
+**Pass-by-Value:**
+
+for example - when we pass a primitive data type its value is always passed by value which means a new copy of that value is created and the value is assigned .
+
+- It's like giving someone your notes, and they create their own notes by copying yours. but Any changes they make to their notes will not affect your original notes.
+
+**While Pass-by-Reference:**
+
+While pass reference occur whenver dealing with non-primitive datatype likes arrays object cause its value is passed as reference which means its value is not copied its location is copied .
+
+- Its like giving someone keys to your house and when some one go to your location in this case my house and do some changes this will changes will show to my house because they have done changes in my house.
+
+--
+
+Detail Ans ---
+
+#### Pass-by-Value vs. Pass-by-Reference
+
+**Pass-by-Value**:
+
+- **Definition**: Primitive data types (e.g., numbers, strings) are passed by value. Changes to the value inside the function do not affect the original variable.
+- **Example**:
+  ```javascript
+  function add(num) {
+    num = num + 10;
+    console.log(num); // Output: 15
+  }
+  var num = 5;
+  add(num);
+  console.log(num); // Output: 5
+  ```
+
+/\*This is because a copy of num was passed in the function not the original reference was passed here we passing the value not passing the reference.
+
+But in case of Non-primitive data type it will be passed as passed by reference that means any changes we make to the copied item will also make changes to the original item .
+\*/
+
+````
+
+**Pass-by-Reference**:
+- **Definition**: Non-primitive data types (e.g., objects, arrays) are passed by reference. Changes to the reference affect the original object.
+- **Example**:
+```javascript
+function modifyObject(obj) {
+  obj.name = "Austin";
+}
+let obj = { name: "Kevin" };
+modifyObject(obj);
+console.log(obj.name); // Output: Austin
+````
+
+**Handling Pass-by-Reference Issues**:
+
+- **Spread Syntax**: Creates a shallow copy of the original object, allowing you to work with a new object without modifying the original one. But this only work for normal objects and fails for the nested object as spread syntax also do shallow copy .
+- **Example**:
+  ```javascript
+  let obj = { name: "Kevin" };
+  let copy_obj = { ...obj };
+  copy_obj.name = "Austin";
+  console.log(obj.name); // Output: Kevin
+  console.log(copy_obj.name); // Output: Austin
+  ```
+
+---
