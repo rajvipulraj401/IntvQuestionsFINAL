@@ -63,25 +63,31 @@ Alongside my studies and my internship, I have developed skills in **HTML, CSS, 
 
 ---
 
-## **1.1) Why you leave your previous company ? [ ✅]]**
+## **1.1) Why you leave your previous company ? [ ✅]**
 
-**"I worked as a front-end intern where the company was heavily focused on Web3, but my work was mostly around React and CSS. I felt that I wasn’t growing as much as I wanted, and I wanted to upskill myself beyond just styling tasks. So, after leaving, I immediately joined Crio to strengthen my web development and DSA skills. This helped me prepare better for future opportunities and grow as a developer."**
+Ans :--
+**"I worked as a front-end intern where the company was focused on Web3, but my work mostly involved with frontEnd. After the internship, they were ready to take me forward in the hiring process, but due to some health issues at that time, I couldn't accept the offer. So I decided to use that time to upskill myself and I joined Crio to improve my web development and DSA skills and to get better prepared for future job opportunities."**
 
 ---
 
-## **2) What are your greatest strength ? [ ✅]]**
+prrof ye de skte ho ---
+**"After my front-end internship, the HR spoke to me and showed interest in continuing with me. It was more of a verbal conversation, and they asked me to take some time to think about it. But due to some health issues at that time, I decided not to continue and instead used that time to upskill myself in web development and DSA through Crio."**
+
+---
+
+## **2) What are your greatest strength ? [ ✅]**
 
 **My greatest strength is that I have always motivated myself and kept pushing forward, no matter the situation. I have learned to stay in the present moment and remain calm, which has not only helped me in my life but has also helped me stay focused and connected to my work. This mindset allows me to quickly learn and adapt to new technologies, helping me contribute to the company in the best possible way.**
 
 ---
 
-## **3) What are your greatest weaknesses ? [ ✅]]**
+## **3) What are your greatest weaknesses ? [ ✅]**
 
 **My biggest weakness used to be overthinking and overanalyzing things because I wanted everything to be perfect. But over time, I’ve realized that taking action is more important than getting stuck in perfection and so Now, I focus on the present moment rather than getting stuck in perfectionism or procrastination .**
 
 ---
 
-## **4) Why should we hire you ? - [ ✅]]**
+## **4) Why should we hire you ? - [ ✅]**
 
 **Sir/Mam, I believe I would be a great fit for this role because I have a solid understanding of front-end technologies, which I gained through my internship ,training and also from crio course . I also know how to work in a company environment and collaborate with a team on projects.**
 
