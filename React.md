@@ -1095,7 +1095,75 @@ function Counter() {
 
 --- -->
 
-## 16. How to implement different lifecycle methods using useEffect?
+## 16. How to implement different lifecycle methods using `useEffect`?
+
+### 🔍 **Need**
+
+In class components, we had **lifecycle methods** like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
+but In **functional components**, we don't have lifecycle methods — so we have to use the `useEffect` hook to handle the life cycle methods.
+
+---
+
+### 📖 **What is it**
+
+`useEffect` is a **React hook** that allows us to perform **side effects** in our functional components. As by default react function components are pure function .
+
+So if we want `to do side effects` such as managing things outside the function’s scope like Fetching data from a server ,Setting up a timer or Listening to events then for this `we need to use the useEffect hook`.
+
+useEffect hooks take two things in the argument one is a callback function and another is a dependancy array and If we return a function (return function) inside the callback, React treats that as a cleanup function. and uses it to clean up resources like clearing intervals or removing event listeners.
+
+---
+
+### 🛠️ **How to implement different lifecycle methods**
+
+So Now lets understand how we achieve different lifecycle method by using useEffect hook
+
+First we have `componentDidMount` and in order to use the lifecycle method of `componentDidMount` and to run the code only once when it gets mounted
+we will pass an empty dependancy array to the useEffect hook this will make the code inside the call back function runs only once when it gets mounted for the first time.
+
+2. Then we have `componentDidUpdate` (run whenever dependencies change)
+   which run the code when the dependancy array changes, so in this we pass the value in the dependancy array and this make the code inside the callback function run two times one when it mounts and then whenever the value inside the dependacny array changes .
+
+---
+
+3. and lastly we can also achieve**`componentWillUnmount`** (cleanup before the component is removed)
+   and for this we actually need a cleanup function inside our callback function
+   for example when we want to clear a timer .
+
+---
+
+### 📺 **Sir, can I share my screen to show this with an example?**
+
+```jsx
+import { useEffect, useState } from "react";
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  // componentDidMount
+  useEffect(() => {
+    console.log("Mounted ✅");
+  }, []);
+
+  // componentDidUpdate
+  useEffect(() => {
+    console.log("Count updated: ", count);
+  }, [count]);
+
+  // componentWillUnmount
+  useEffect(() => {
+    const id = setInterval(() => setCount((c) => c + 1), 1000);
+    return () => {
+      clearInterval(id);
+      console.log("Unmounted ⛔");
+    };
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+---
 
 <!-----
 
@@ -1103,7 +1171,91 @@ function Counter() {
 
 --- -->
 
-17. How does useEffect's behavior change with its dependency array?
+## 17. How does `useEffect`'s behavior change with its dependency array?
+
+---
+
+### 🔍 **Need**
+
+When we use the `useEffect` hook , we use it to manage different lifecycle method and to run code at specific times so in order to do that we have the dependancy array which decides when should the useEffect hook run.
+
+---
+
+### 📖 **What is it**
+
+`useEffect` is a **React hook** that allows us to perform **side effects** in our functional components. As by default react function components are pure function .
+
+So if we want `to do side effects` such as managing things outside the function’s scope like Fetching data from a server ,Setting up a timer or Listening to events then for this `we need to use the useEffect hook`.
+
+useEffect hooks take two things in the argument
+
+1. one is a **callback function** inside which we write the side effect which we want to run.
+2. and other is a **dependency array** that determines when the useEffect hook should re-run. and If we return a function (return function) inside the callback, React treats it as a cleanup function. and uses it to clean up resources like clearing intervals or removing event listeners.
+
+### 🛠️ **How to implement**
+
+#### **So there are three main ways that we can use the dependancy array**
+
+- 1. First is when we pass an **Empty Dependency Array (`[]`)**: it mimics the `componentDidMount` lifecycle method in class components. and runs the callBack function inside the useEffect hook only when the component is mounted .
+
+- 2.  **The other way is when we pass any value in the dependancy array (`[dep1, dep2]`)**:
+      in this case the callback function runs two times one when the component is mounted just like `componentDidMount` and also whenever the value inside the dependacy array changes .which makes it equivalent to `componentDidUpdate` lifecycle method of class component.
+
+- 3. and lastly if pass no dependancy array then the callback function runs every time when the component is re-rendered.
+     This behavior is equivalent to both `componentDidMount` and `componentDidUpdate`
+
+---
+
+### 📺 **Sir, can I share my screen to show this with an example?**
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+const TimerComponent = () => {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState("John");
+
+  // Effect with empty dependency array
+  useEffect(() => {
+    console.log("Mounted - runs only once!");
+  }, []); // Runs only once
+
+  // Effect with count as a dependency
+  useEffect(() => {
+    console.log("Count updated: ", count);
+  }, [count]); // Runs whenever count changes
+
+  // Effect with both count and name as dependencies
+  useEffect(() => {
+    console.log("Count or Name updated!");
+  }, [count, name]); // Runs whenever either count or name changes
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <h2>Name: {name}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setName(name === "John" ? "Jane" : "John")}>
+        Toggle Name
+      </button>
+    </div>
+  );
+};
+
+export default TimerComponent;
+```
+
+---
+
+### 🔄 **Summary of Behavior Based on Dependency Array**
+
+| Dependency Array           | Behavior                                                                                   |
+| -------------------------- | ------------------------------------------------------------------------------------------ |
+| `[]` (empty)               | Effect runs **only once**, after the initial render.                                       |
+| `[dep1, dep2]` (non-empty) | Effect runs **whenever any of the dependencies change**.                                   |
+| (no dependency array)      | Effect runs **after every render**, making it equivalent to `componentDidUpdate` in class. |
+
+---
 
 <!-----
 
@@ -1111,7 +1263,7 @@ function Counter() {
 
 --- -->
 
-18. Differentiate between useState and useEffect Hooks in React.
+## 18. Differentiate between useState and useEffect Hooks in React.
 
 ---
 
@@ -1123,7 +1275,8 @@ function Counter() {
 
 # **(d)** _React Props & State_
 
-19. What are props in React?
+## 19. What are props in React?
+
 <!-----
 
 ---------20--------
@@ -1248,8 +1401,7 @@ an empty dependancy array and this will run the callback function when the compo
 
 and when we pass no dependancy array then the callback function runs every time when the component is re-rendered.
 
-and finally if we pass any value in the dependancy array then the callback function only runs when the value inside the dependacy array changes
-and alos when the component is mounted for the first time.
+and finally if we pass any value in the dependancy array then the callback function runs two times one when the component is mounted and other times whenever the value inside the dependacy array changes
 
 ### **How to implement**
 
