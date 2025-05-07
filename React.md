@@ -1362,7 +1362,113 @@ export default TimerComponent;
 # **(h)** _React techniques and hooks_:--
 
 53. what is useState Hook ? and why we need state why can't we just use variable ?
+
+<!-----
+
+  ---------54--------
+
+--- -->
+
 54. What does "debouncing" mean, and how can you implement it in React?
+
+---
+
+### 🔍 **Need**
+
+In real-world applications, we often take input from users — for example, in a **search box** — we take userInput and show results based on that input. However, if we trigger an **API call** on every keystroke, it can lead to performance issues.
+
+for example Suppose every time a user types something, it triggers an API call and If the user is typing fast, this could result in **multiple API calls** within a very short time, which will create unnecessary **network traffic** and can slow down the application.
+So To solve this problem, we need a way to **delay** the function execution until the user stops typing. and for this purpose we need something known as debouncing.
+
+---
+
+### 📖 What is Debouncing?
+
+Debouncing is a technique used to **delay the execution** of a function until a certain amount of time has passed after the last time it was called.This prevents unnecessary re-renders or API calls while the user is still typing.
+for eg:--
+It waits for the user to **stop typing** (or scrolling, etc.) for a specified time — and **then** triggers the function.
+
+---
+
+### 🛠️ How to implement in React
+
+- `setTimeout` + `clearTimeout` inside `useEffect`
+
+#### **How does debouncing work?**
+
+1️⃣ We store the input value using `useState`.  
+2️⃣ Every time the user types, we start a **timer (`setTimeout`)** to update the state **after a delay** (e.g., 500ms).  
+3️⃣ If the user types again before the delay finishes, we **clear the previous timeout** and start a new one.  
+4️⃣ This ensures that the function runs **only when the user stops typing for a while**.
+
+We use `useEffect` to watch input changes and use `setTimeout` to delay the logic.
+
+#### **How can we manage this using only `useState`?**
+
+1️⃣ **Create a state to store the input value.**  
+2️⃣ **Create another state to store the timeout ID.**  
+3️⃣ Inside the input field's `onChange` event,
+
+- **Clear the existing timeout using `clearTimeout`** (to reset the delay).
+- **Start a new timeout (`setTimeout`)** and update the input state **only after the delay**.
+- **Store the timeout ID in state** so that it can be cleared on the next keystroke.
+
+```jsx
+import { useState, useEffect } from "react";
+
+function SearchInput() {
+  const [input, setInput] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(input);
+    }, 500); // Delay of 500ms
+
+    return () => clearTimeout(timer); // Cleanup on next keystroke
+  }, [input]);
+
+  useEffect(() => {
+    if (debouncedValue) {
+      console.log("API call for:", debouncedValue);
+      // You can trigger your API here
+    }
+  }, [debouncedValue]);
+
+  return (
+    <input
+      type="text"
+      placeholder="Search..."
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+    />
+  );
+}
+```
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+- I will type in the input box.
+- You'll see that the `console.log` (or API call) only fires **after I stop typing** for 500ms.
+- This shows how **debounce reduces unnecessary function calls**.
+
+---
+
+### ✅ Pro Tip
+
+- Debounce is perfect for **search bars, form validation, resize handlers** etc.
+- You can also use **`lodash.debounce()`** if you want a cleaner syntax.
+
+---
+
+<!-----
+
+  ---------55--------
+
+--- -->
+
 55. Explain the concept of ‘Lifting State Up’ in React ?
 56. What is useRef Hook in React?
     (example do yaha FOCUS krke input ko bolo chatgpt ko)
@@ -1454,8 +1560,322 @@ function MyComponent() {
 74. What is useReducer Hook in React
 75. Explain the process of making an HTTP request to a server
 76. Name different types of HTTP requests
+
+<!-----
+
+  ---------77--------
+
+--- -->
+
 77. What is lazy loading and debouncing?
+
+Ans :--
+
+Perfect! This is again a **Type 1** style question. Let's answer it in a structured way — starting with **why we need them**, what they are, and their differences with **real-world examples** and **code snippets**.
+
+---
+
+## 27) What is **Lazy Loading** and **Debouncing** in JavaScript?
+
+---
+
+### 🔍 **Need**
+
+In modern web development, we focus a lot on:
+
+- **Performance optimization**
+- **Reducing load time**
+- **Avoiding unnecessary function calls**
+
+Two techniques that help us with this are:
+✅ **Lazy Loading**
+✅ **Debouncing**
+
+Let’s understand both one by one.
+
+---
+
+## ⚡ 1) Lazy Loading
+
+### 📖 **Definition**
+
+**Lazy Loading** is a technique where we **delay loading of a resource (like images, scripts, or components)** until they are **actually needed**.
+
+Instead of loading everything upfront, we load **only what’s necessary** — and load the rest **on-demand**.
+
+---
+
+### 🧠 Think of it like:
+
+> You don’t prepare all your clothes for the whole month in one go.
+> You take out only **what you need today** — that’s lazy loading.
+
+---
+
+### 🧪 Example: Lazy load an image
+
+```html
+<img src="placeholder.jpg" loading="lazy" data-src="real-image.jpg" />
+```
+
+Or in JavaScript:
+
+```js
+const loadImage = () => {
+  const img = document.querySelector("img");
+  img.src = img.dataset.src;
+};
+```
+
+### ✅ Use case:
+
+- Improves **initial page load**
+- Saves **bandwidth**
+- Used in **React** for route-based component loading:
+
+```js
+const About = React.lazy(() => import("./About"));
+```
+
+---
+
+## 🕒 2) Debouncing
+
+### 📖 **Definition**
+
+**Debouncing** is a technique used to **limit how often a function is called**, especially in **high-frequency events** like:
+
+- `scroll`
+- `resize`
+- `input`/`search` typing
+
+It ensures that the function runs **only after a pause** in activity.
+
+---
+
+### 🧠 Think of it like:
+
+> You wait for someone to **stop talking** before you reply.
+> If they keep typing, you hold on.
+> You **respond only after they stop for a while**.
+
+---
+
+### 🧪 Example: Debounced search input
+
+```js
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+const handleSearch = debounce((e) => {
+  console.log("Searching for", e.target.value);
+}, 300);
+
+document.getElementById("searchBox").addEventListener("input", handleSearch);
+```
+
+---
+
+### ✅ Use case:
+
+- Improves **performance**
+- Avoids **API over-calling**
+- Common in **search bars**, **window resize**, **auto-save**
+
+---
+
+## 🔄 **Lazy Loading vs Debouncing**
+
+| Feature  | Lazy Loading                      | Debouncing                      |
+| -------- | --------------------------------- | ------------------------------- |
+| Purpose  | Delay loading resources           | Delay function execution        |
+| Use Case | Images, Components, Routes        | Typing, Resize, Scroll          |
+| Goal     | Faster page load                  | Fewer function calls            |
+| Trigger  | Load only when needed (on demand) | Wait for pause in user activity |
+
+---
+
+## 🔚 Conclusion:
+
+- **Lazy Loading** is about **loading when needed**.
+- **Debouncing** is about **waiting before running** a function.
+- Both are used for **performance optimization** in different ways.
+
+---
+
+## Let me know if you want **throttling** explained too, which is closely related to debouncing.
+
+<!-----
+
+  ---------78--------
+
+--- -->
+
 78. How to increase performance in React?
+<!-----
+
+---------79--------
+
+--- -->
+
+79. What is Caching, and what are the different types of caching?
+
+Ans :--
+
+### 🔍 **Need**
+
+In web applications, there is often a need to access the same data repeatedly (e.g., user info, product details, etc.). Fetching data from a **database** or an **API** every time can be **slow** and **inefficient**.
+
+So ,We need a way to **store** this data temporarily for **faster access** — and that's where we need **caching** .
+
+---
+
+### 📖 What is Caching?
+
+Caching is a **technique used to store data temporarily** so that it can be retrieved faster next time it's needed. Instead of repeatedly fetching data from a slow source (like a database or API), caching keeps it ready for quick access.
+
+---
+
+There are different types of caching based on where and how the data is stored.
+
+### 🛠️ Some Types of Caching are:--
+
+1. **Browser Cache**:
+
+   - The browser stores certain resources (images, HTML, CSS) locally on the user's machine.
+     **usage--**so that when we visit the website again the browser doesnot need to re-download those resource and can quickly load the page.
+
+2. **Content Delivery Network (CDN) Cache**:
+
+   - A CDN caches Stores content (images, videos, etc.) on servers located around the world close to the user’s location.
+     **usage--** and then uses it to delivers the content quickly by serving it from the nearest server and hence improve the loading page.
+
+3. **Database Cache**:
+
+   - is used to store the result of frequently run database queries
+     **usage--** and is used to reduce the number of queries to the database, which speed up response times and lower the database load.
+   -
+
+4. **Application Cache**:
+
+   Application caches is used to Cache application data either on the **client-side** (e.g., using **localStorage**, or **sessionStorage**) or on the **server-side** (e.g., in-memory cache like Redis).
+   **Usage:** and Helps store non-changing or user-specific data like preferences, tokens, or config settings, so it doesn't have to be fetched again and again.
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+- I'll show a **browser caching example** in DevTools.
+- Then, I’ll demonstrate **Redis caching** to speed up database queries.
+
+---
+
+### ✅ Pro Tip
+
+- **Cache Invalidation**: Cache doesn't last forever. It needs to be **cleared or updated** when the data changes, otherwise stale data may be served.
+- **Cache-Control** headers in HTTP responses are used to manage how and for how long resources are cached in browsers and CDNs.
+
+---
+
+<!-----
+
+  ---------80--------
+
+--- -->
+
+## 80. what is throttling ?
+
+Ans :---Great! Here's how you'd answer this **Type 1** question about **throttling** in JavaScript — in a clean, structured, and easy-to-speak format 👇
+
+---
+
+## 80) What is **Throttling** in JavaScript?
+
+---
+
+### 🔍 **Need for Throttling**
+
+In real-world web apps, some events like:
+
+- `scroll`
+- `resize`
+- `mousemove`
+
+...can fire **hundreds of times per second**.
+
+➡️ This can **slow down the app** if you call a function every time the event fires.
+
+That’s where **throttling** helps!
+
+---
+
+### 🧠 What is Throttling?
+
+> ✅ **Throttling** is a technique used to **limit how often a function is called**.
+
+It ensures that the function runs **only once in a specified time interval**, even if the event occurs **multiple times**.
+
+---
+
+### 📦 Think of it like:
+
+> "You can press the elevator button **many times**, but it only **responds once every 2 seconds**."
+
+---
+
+### 📚 Example:
+
+```js
+function throttle(func, delay) {
+  let lastCall = 0;
+
+  return function (...args) {
+    const now = new Date().getTime();
+
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      func.apply(this, args);
+    }
+  };
+}
+```
+
+Usage:
+
+```js
+function onScroll() {
+  console.log("Scrolling...");
+}
+
+window.addEventListener("scroll", throttle(onScroll, 1000)); // runs once every 1 sec
+```
+
+---
+
+### 🔄 Difference between **Throttling** and **Debouncing**:
+
+| Feature      | Debouncing                        | Throttling                       |
+| ------------ | --------------------------------- | -------------------------------- |
+| Timing       | Waits till the last event fires   | Runs at regular intervals        |
+| Use case     | `Search input`, `Auto-save`       | `Scroll`, `Resize`, `Mouse move` |
+| Delay resets | Every event call resets the timer | Timer runs independently         |
+
+---
+
+### 📌 In Summary:
+
+> ✅ **Throttling** limits how often a function runs, improving performance by preventing too many executions in short time.
+
+---
+
+Let me know if you also want a **visual diagram** to explain this better during your answer!
 
 ---
 

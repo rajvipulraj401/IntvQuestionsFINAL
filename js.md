@@ -1452,7 +1452,39 @@ console.log(arr4);
 
 --- -->
 
+(write again)
 27)What are the differences between arrow functions and function expressions in JS?
+
+**Answer:---**
+
+- Arrow function was introduced in ES6 version of JavaScript.
+- The difference between arrow function and function expression lies in its syntax and some of its use cases.
+
+**When we talk about Arrow Function:**
+
+- The Arrow function make use of an arrow `=>`like syntax instead of writing function keyword which makes it different from other types of funciton .
+- The benefit it has over function expression is that it is concise.
+  - For example, when we have a single line of code in a function, we can omit the curly brackets as well as the `return` keyword.
+  - Not only that, when we have a single parameter, we can even omit the small bracket around the parameter and keep only the parameter name there. In this way, the function becomes concise.
+
+**In contrast when talking about Function Expression:**
+
+- This type of function is used to store an anonymous function in a variable.
+- While arrow functions also do that, the main difference between them is that arrow functions are concise but do not have the `this` keyword.
+  - This is crucial whenever dealing with methods inside objects.and also trying to create constructor and trying to use with new keyword as arrow function cannot do this.
+
+**Additional Note:**
+
+- The main reason for the introduction of these two functions was that earlier, function declarations were hoisted to the top of the code, which used to create bugs as they could be called even before they were declared and this two new functions are not hoisted to the top of their scope .
+  In conclusion use Function expression whenver we want to make use of a function with its own this keyword or want to use a function as a constructor and use arrow function whenver we want to write callback function as well as want our function to be concise.
+
+---
+
+<!-----
+
+  ---------28--------
+
+--- -->
 
 28)How are arrays different from objects in JavaScript?
 
@@ -1490,17 +1522,120 @@ Ans :-- The browser window or tab.
 
 38)what is dom and why do we need dom?
 
+Ans :---
+
+बिलकुल भाई, मैं पूरी तरह से सुन रहा हूँ — और अब जो फॉर्मैट तुमने बोला (Need → What → How), उसी में आगे बढ़ते हैं। चलो पहले तुम्हारा स्टार्टिंग हिस्सा पकड़ते हैं और फिर मैं तुम्हारी बात को क्लीयर, इंटरव्यू-रेडी और स्ट्रक्चर्ड तरीके से जमाने में मदद करता हूँ।
+
+---
+
+## ✅ **Need (क्यों DOM चाहिए?)**
+
+> In JavaScript or in web development, when we create websites, the browser doesn't understand our HTML and CSS as-is. Instead, it parses the entire HTML structure and converts it into a tree-like format so that JavaScript can interact with each element efficiently. This tree structure allows dynamic manipulation of content — like updating text, changing styles, handling events, etc. That's why we need the DOM — to bridge HTML with JavaScript.
+
+---
+
+## ✅ **What is DOM?**
+
+> DOM stands for **Document Object Model**.
+> It's a **programmatic representation** of the HTML page loaded in the browser.
+> It represents the **structure** of the page as a **tree of nodes** — where every tag becomes a node, and JavaScript can access or modify any part of it.
+
+Example:
+
+```html
+<body>
+  <h1>Hello</h1>
+  <p>World</p>
+</body>
+```
+
+DOM Tree for this:
+
+```
+Document
+ └── html
+     └── body
+         ├── h1
+         └── p
+```
+
+---
+
+## ✅ **How do we use DOM in JavaScript?**
+
+> We use the **DOM API** to select, create, modify, or delete elements on the webpage.
+
+### Examples:
+
+**1. Select an element:**
+
+```js
+let heading = document.querySelector("h1");
+```
+
+**2. Change content:**
+
+```js
+heading.textContent = "Welcome!";
+```
+
+**3. Create a new element:**
+
+```js
+let newPara = document.createElement("p");
+newPara.textContent = "This is a new paragraph.";
+document.body.append(newPara);
+```
+
+**4. Delete an element:**
+
+```js
+newPara.remove();
+```
+
+---
+
+## 🔥 Final Wrap (Interview-Style):
+
+> So the DOM is essential because it gives JavaScript the ability to **interact with HTML content** dynamically. We use it to create interactive, real-time updated user interfaces.
+
+---
+
+\_---
+
 39. How to do crud application on dom?
 
 Ans --
 
 create - using .createElement
 
-Read- All 5 ways to select the elements
+Read- All 5 ways to select the elements (see old notes of fe103)
 
 Update- In order to update it we use ( textContent, innerText, innerHtml)
 
 Delete- remove method
+
+```js
+/* select the element */
+let select = document.querySelector("#heading");
+console.log(select.textContent);
+
+/* create element */
+
+let newElm = document.createElement("h3");
+
+/* update element */
+newElm.textContent = "hello div";
+
+/* append kr diya wo elment */
+let appendElm = document.querySelector(".appender");
+appendElm.append(newElm);
+
+/* deleting the elemetn using remove method */
+/* appendElm.remove(newElm); */
+
+newElm.remove();
+```
 
 --- One liner questions :-----
 
@@ -1512,7 +1647,134 @@ Ans :-- string
 
 42. what is a callstack in javascript and how many callstack does javascript have?
 
+Exampless Ans :---
+
+### 1. **Need (Why do we need a call stack?)**
+
+> In JavaScript, we often write several functions that call each other. To keep track of which function is currently being executed, and where to return after a function completes, we need some kind of system.
+> That's where the **call stack** comes in—it helps JavaScript keep track of function execution in the correct order.
+
+---
+
+### 2. **What (What is a call stack?)**
+
+> A **call stack** is a data structure that works on the **LIFO** principle—**Last In, First Out**.
+> It stores the function calls in the order they're made. When a function is called, it's added to the top of the stack. When it's finished, it's removed from the top.
+> JavaScript is **single-threaded**, so it has **only one call stack**. That means it can only do one thing at a time.
+
+---
+
+### 3. **How (How does it work? + With example)**
+
+> Along with the call stack, JavaScript also uses the **event loop**, **microtask queue**, and **macrotask queue** to handle asynchronous operations.
+> Here's a quick breakdown:
+>
+> - **Synchronous tasks** go directly into the call stack.
+> - **Microtasks** (like promises) go into the **microtask queue**.
+> - **Macrotasks** (like `setTimeout`) go into the **macrotask queue**.
+
+> Let’s say we have the following code:
+
+```javascript
+console.log("Hello");
+setTimeout(() => console.log("from timeout"), 0);
+Promise.resolve().then(() => console.log("from promise"));
+console.log("Goodbye");
+```
+
+> Here's what happens:
+>
+> 1. `"Hello"` is logged immediately (synchronous).
+> 2. `setTimeout` is scheduled → goes to **macrotask queue**.
+> 3. The `.then()` callback is scheduled → goes to **microtask queue**.
+> 4. `"Goodbye"` is logged (synchronous).
+> 5. After the stack is empty, microtasks run → logs `"from promise"`.
+> 6. Then the macrotask (`setTimeout`) runs → logs `"from timeout"`.
+
+> This is how JavaScript handles both **synchronous** and **asynchronous** code using the **call stack** and the **event loop system**.
+
+---
+
+## 🎤 Final Tip on Speaking
+
+जब आप बोलते हो, तो ध्यान रखें कि आप तीन चीज़ें साफ़ करें:
+
+1. **आप क्यों बता रहे हो (Need)**
+2. **क्या है वो चीज़ (What)**
+3. **कैसे काम करती है (How – with example/code)**
+
+इस फॉर्मैट से आपका जवाब structured और professional लगेगा, जो interview में बहुत असरदार होता है।
+
+---
+
+क्या आप चाहेंगे कि मैं आपके लिए इस पूरे corrected जवाब का एक **स्क्रिप्टेड स्पीकिंग वर्शन** बनाऊँ जिससे आप प्रैक्टिस कर सकें बिल्कुल natural English में?
+
+---
+
 43. What is the raw data format in which we format we get data and why we convert it to json ?
+
+Anss :----
+
+---
+
+### 1. **Need (Why do we need to convert data to JSON?)**
+
+> When we make API calls in JavaScript, we receive data from a server.
+> This data usually comes in **raw format**, like a **text stream** or **binary stream**, and we can't directly work with it in our JavaScript code.
+> So, to make it **readable and usable**, we need to **convert or parse** this data into a structured format like JSON.
+
+---
+
+### 2. **What (What is JSON and why is it used?)**
+
+> **JSON (JavaScript Object Notation)** is a lightweight, text-based format used to represent structured data.
+> It's easy to read and write, and more importantly, it's easy to **convert into JavaScript objects** using `JSON.parse`.
+> Most APIs send data in JSON format because it's **language-independent**, but works natively with JavaScript.
+
+---
+
+### 3. **How (How does this work in code?)**
+
+> Let's say we're calling an API using `fetch`. Here's a simplified example:
+
+```javascript
+async function getData() {
+  try {
+    const response = await fetch("https://api.example.com/data");
+    const data = await response.json(); // This converts raw response to usable JSON
+    console.log(data); // Now 'data' is a JS object or array
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+```
+
+> In this example:
+>
+> - The `fetch()` method returns a **Response object**.
+> - We call `.json()` on that response to **parse the raw stream into a JSON object**.
+> - Once parsed, we can easily access its properties like any other JavaScript object.
+
+---
+
+### 🔁 Summary
+
+> So, in summary, data received from an API is often in raw form, like a stream.
+> We convert it to **JSON** so we can work with it as a **JavaScript object** using `.json()` and `JSON.parse`.
+> That makes the data easier to **manipulate, render, or store** in our applications.
+
+---
+
+## 🎙️ Speaking Tips (Based on Your Original)
+
+- Avoid repeating phrases like “we actually”, “we make use of” too often.
+- Use clear sentence breaks and transitions.
+- Practice pronouncing technical terms confidently: "`response.json()`", "JSON.parse", "JavaScript object", etc.
+- Instead of saying “I think readable”, say directly “in raw text format which is not directly readable”.
+
+---
+
+---
 
 ## -----fe 103 ka questions:---- (watch videos and apna notes)
 
@@ -1594,6 +1856,83 @@ You can use Event Listeners for **mouse events, keyboard events, input events**,
 ## 45)What is an event loop? How does JavaScript event loop work and how does it contribute to the language's asynchronous nature? Can you explain the concept of the call stack and the message queue in this context?
 
 46)How to console params and query in JavaScript?
+
+ans:---That's a great start—and I really appreciate that you're trying to **speak in a structured format (Need → What → How)** and even acknowledging when you're unsure. That’s honest and human. Let’s go through what you said, line-by-line first, and then I’ll give you a **corrected, complete version** of the answer using the same speaking style you're practicing.
+
+---
+
+## 🧾 **Your Spoken Answer (Original - As Spoken)**
+
+> So, when we actually make any API calls or whenever we actually went to any server, we can see that in the URL, we have, after the question mark, we can see some of the things which are written.
+> So, those things, like for example, we went to a URL called [www.xyz.com](http://www.xyz.com) and then slash page, then question mark, event equal to something. And then and equal to, and place equal to something.
+> So, whatever that is written after the question mark is actually a parameter, a query and parameter of the URL.
+> So, in order to console.log that thing in JavaScript, I don't know what to do. I actually forgot it.
+
+✅ You're trying to explain something correctly but got stuck on the **"how"** part—which is totally fine in practice mode.
+
+---
+
+## ✅ **Corrected & Complete Answer in “Need → What → How” Format**
+
+---
+
+### 1. **Need (Why do we need to access query parameters?)**
+
+> When working on web applications, we often receive data through the URL in the form of **query parameters**.
+> These are typically used for filtering, tracking, pagination, or passing small bits of data between pages.
+> So, we need a way in JavaScript to **read and work with** those query parameters.
+
+---
+
+### 2. **What (What are query parameters?)**
+
+> Query parameters are the key-value pairs that appear **after the `?` in a URL**.
+> For example:
+> `https://www.xyz.com/page?event=webinar&place=delhi`
+> In this case, `event=webinar` and `place=delhi` are query parameters.
+> They're not part of the path—they’re extra data sent in the URL.
+
+---
+
+### 3. **How (How to access or log them using JavaScript)**
+
+> Sir, I would like to share my screen to show this with an example. Let me write some code to demonstrate:
+
+```javascript
+// Let's say our URL is:
+// https://www.xyz.com/page?event=webinar&place=delhi
+
+const params = new URLSearchParams(window.location.search);
+
+const event = params.get("event");
+const place = params.get("place");
+
+console.log("Event:", event); // Output: webinar
+console.log("Place:", place); // Output: delhi
+```
+
+> In this code:
+>
+> - `window.location.search` gives us everything after the `?` in the URL.
+> - `URLSearchParams` is a built-in JavaScript object that makes it easy to extract individual query values.
+> - We use `.get("key")` to retrieve the value for each parameter.
+
+---
+
+### 🔁 Summary
+
+> So, we use the **URLSearchParams API** to read query parameters in JavaScript.
+> It's simple, built-in, and works directly on the URL. This is helpful in real-world projects when we want to personalize pages based on the URL or fetch filtered results.
+
+---
+
+## 💬 Final Tip for Interview Speaking
+
+When you forget something during an interview, it’s better to calmly say:
+
+> “I’m forgetting the exact method right now, but I believe we use something like `URLSearchParams` on `window.location.search` to extract query values. I’d be happy to check or demo it live.”
+
+## Would you like me to make a short **audio script** for this answer so you can rehearse it aloud just like in an interview?
 
 47)What is Event Bubbling in JavaScript?
 
@@ -1946,3 +2285,920 @@ console.log(obj1.boy.cat); // 100 (structuredClone also didn’t affect original
   ---------56--------
 
 --- -->
+
+56. What are JavaScript currying functions?
+
+Ans :---
+
+### 🔍 **Need**
+
+In many real-world scenarios, we don’t always have **all the data at once**. We might want to build a function in such a way that:
+
+- We **pass arguments one by one**,
+- And **reuse** the same function for multiple use cases.
+
+Also, breaking functions into smaller steps improves **code reusability**, **readability**, and supports concepts like **partial application**. That’s where **currying** helps.
+
+---
+
+### 📖 What is Currying?
+
+**Currying** is a functional programming technique in JavaScript where:
+
+- Instead of taking **all arguments at once**, a function takes **one argument at a time**.
+- Each function returns another function, until all arguments are provided.
+
+> ✅ A curried function **remembers** the previous arguments via **closures** and keeps returning new functions until it has everything it needs.
+
+---
+
+### 🛠️ How to implement Currying
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+- I’ll show the difference between normal and curried functions.
+- Then I’ll show how you can use currying to create **reusable filters** or **logger functions**.
+
+Let’s say you want to add 3 numbers — a normal function would look like:
+
+```js
+function add(a, b, c) {
+  return a + b + c;
+}
+console.log(add(1, 2, 3)); // 6
+```
+
+Here’s a **curried version**:
+
+```js
+function curriedAdd(a) {
+  return function (b) {
+    return function (c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log(curriedAdd(1)(2)(3)); // 6
+```
+
+You can also write this with arrow functions:
+
+```js
+const curriedAdd = (a) => (b) => (c) => a + b + c;
+```
+
+<!-- Step 1 (by using clousres) -->
+
+### Example code of Infinite currying ( this uses recursion)
+
+eg curriedAdd()()()().....
+
+```js
+
+```
+
+## <!-- Step 2 (by using bind method) -->
+
+### ✅ Pro Tip:
+
+- **Currying is especially useful in React**, Redux, and libraries like Lodash or Ramda.
+- It allows you to create **customized versions of functions** for different needs by **pre-filling arguments**.
+
+---
+
+<!-----
+
+  ---------57--------
+
+--- -->
+
+57. what is a callback hell?
+
+Ans :---
+
+### 🔍 **Need**
+
+In JavaScript, when we deal with **asynchronous operations** (like fetching data, or using listeners and timeouts),
+and To handle these async tasks, we have three ways
+
+1. using a callback function
+2. using promises
+3. and using async/await.
+
+So when we use a callback function it means that we are passing a function insie another higher order function But if we have **many async tasks** that depend on each other and each one is inside another callback —
+it creates a **deep nesting structure** and that is known as callback hell .
+
+---
+
+### 📖 What is Callback Hell?
+
+**A Callback Hell** refers to a situation when there are **multiple nested callbacks**, which results in complex hard to read code and hard to debug code .This deeply nested code often results in a triangular or pyramid-like structure, which is commonly known in programming as the **“pyramid of doom”** .
+
+---
+
+### 🧠 Why it’s bad:
+
+- ❌ Hard to **understand** the flow of logic
+- ❌ Difficult to **handle errors**
+- ❌ Not **scalable** — if the logic grows, so does the nesting
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Sure! Here's how you can change your example to use `setTimeout` for simulating asynchronous behavior and demonstrate **Callback Hell**:
+
+### Example of Callback Hell with `setTimeout`:
+
+```js
+// Simulating a series of asynchronous tasks with setTimeout
+setTimeout(function () {
+  console.log("Task 1 completed");
+
+  setTimeout(function () {
+    console.log("Task 2 completed");
+
+    setTimeout(function () {
+      console.log("Task 3 completed");
+
+      setTimeout(function () {
+        console.log("Task 4 completed");
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}, 1000);
+```
+
+### Visualizing it:
+
+```txt
+setTimeout
+  ↳ setTimeout
+      ↳ setTimeout
+          ↳ setTimeout
+              ↳ console.log
+```
+
+This **deep nesting** is Callback Hell.
+
+---
+
+### 💡 Pro Tip:
+
+- **Callback hell = Bad structure**, not callbacks themselves.
+- Callbacks are fine when shallow — avoid nesting.
+- Prefer **Promises or async/await** in modern JavaScript for **clean and readable async code**.
+
+---
+
+> 👉 Callback Hell = Nested callbacks inside callbacks, leads to unreadable and unmaintainable code.
+
+---
+
+<!-----
+
+  ---------58--------
+
+--- -->
+
+## 58. What is the difference between arrow function and normal function ?
+
+Ans :--
+
+### ✅ **Similarity first**
+
+Both **arrow functions** and **normal functions** in JavaScript allow you to define functions, and they can be used for performing tasks like calculations, manipulating data, or handling events. They both are function definitions, but the key difference lies in **how they handle certain things**, particularly **`this`** and how they are written.
+
+---
+
+### 🔄 **But there are some key differences between them:**
+
+---
+
+1. **The first major difference is their syntax.**
+
+   - **Arrow function** has a **shorter syntax**, which makes it more concise:
+
+     ```js
+     const add = (a, b) => a + b;
+     ```
+
+   - **Normal function** uses the traditional `function` keyword:
+
+     ```js
+     function add(a, b) {
+       return a + b;
+     }
+     ```
+
+---
+
+2. **Secondly, their behavior with `this` is different.**
+
+   - **Arrow functions** do **not have their own `this`**. They **lexically inherit `this`** from the surrounding scope, meaning `this` inside an arrow function refers to the `this` of its surrounding context.
+
+     ```js
+     const person = {
+       name: "Alice",
+       greet: () => console.log(this.name), // `this` doesn't refer to `person` here
+     };
+     person.greet(); // undefined (because `this` refers to the global scope)
+     ```
+
+   - **Normal functions** **have their own `this`** and it refers to the object or context from which they are called.
+
+     ```js
+     const person = {
+       name: "Alice",
+       greet: function () {
+         console.log(this.name);
+       },
+     };
+     person.greet(); // "Alice" (because `this` refers to `person`)
+     ```
+
+---
+
+3. **Third, their usage in `constructor functions` differs.**
+
+   - **Arrow functions** **cannot be used as constructor functions**. They do not have their own `this`, so they cannot be invoked with `new`.
+
+     ```js
+     const Person = (name) => {
+       this.name = name; // `this` doesn't work here
+     };
+     const person = new Person("Alice"); // TypeError: Person is not a constructor
+     ```
+
+   - **Normal functions** **can be used as constructor functions**. When called with `new`, they create new objects.
+
+     ```js
+     function Person(name) {
+       this.name = name;
+     }
+     const person = new Person("Alice");
+     console.log(person.name); // "Alice"
+     ```
+
+---
+
+4. **Also, arrow functions** **cannot have their own `arguments` object**. They inherit the `arguments` object from the outer function scope.
+
+   - **Normal functions** have their own `arguments` object, which is an array-like object containing all the passed parameters.
+
+     ```js
+     function normalFunction() {
+       console.log(arguments);
+     }
+     normalFunction(1, 2, 3); // [1, 2, 3]
+     ```
+
+     Arrow functions do not have `arguments`, and trying to use it inside an arrow function will give an error:
+
+     ```js
+     const arrowFunction = () => {
+       console.log(arguments); // ReferenceError: arguments is not defined
+     };
+     arrowFunction(1, 2, 3);
+     ```
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+#### Example of Arrow Function vs Normal Function
+
+```js
+// Arrow function example
+const greetArrow = () => console.log("Hello from Arrow Function");
+greetArrow(); // "Hello from Arrow Function"
+
+// Normal function example
+function greetNormal() {
+  console.log("Hello from Normal Function");
+}
+greetNormal(); // "Hello from Normal Function"
+```
+
+---
+
+### ✨ Final Summary:
+
+- **Arrow functions** are concise, **don’t have their own `this`**, **cannot be used as constructors**, and **cannot access `arguments`**.
+- **Normal functions** have their own `this`, can be used as constructors, and have access to the `arguments` object.
+
+---
+
+> 👉 The key difference is:
+> **Arrow functions** — concise, lexically bound `this` > **Normal functions** — traditional, have their own `this`
+
+---
+
+Shall I move to the next question?
+
+---Perfect, Vipul! Since this is a **difference-type question**, I’ll answer it in your **Type 2 format** — with similarities, differences, and examples.
+
+---
+
+<!-----
+
+  ---------25--------
+
+--- -->
+
+## 25) What is the difference between Arrow Function and Normal Function in JavaScript?
+
+---
+
+### ✅ **Similarity first**:
+
+Both **arrow functions** and **normal functions** are used to **declare functions** in JavaScript, and both can be used to:
+
+- Accept parameters
+- Return values
+- Be assigned to variables
+- Be passed as arguments or returned from other functions
+
+---
+
+### 🔄 **But there are some key differences between them**:
+
+---
+
+### 1. **Syntax and Clean Code**
+
+**Arrow Function:**
+
+- Shorter and more concise syntax
+- Great for writing **small callbacks or one-liners**
+
+```js
+const add = (a, b) => a + b;
+```
+
+**Normal Function:**
+
+- More traditional and flexible syntax
+- Useful when you need **more control**, like using `this`, `arguments`, or hoisting
+
+```js
+function add(a, b) {
+  return a + b;
+}
+```
+
+---
+
+### 2. **`this` Binding**
+
+This is the **biggest difference**:
+
+**Arrow Function:**
+
+- **Does not have its own `this`** — it uses the `this` from the surrounding scope (lexical scoping)
+- Commonly used in React or callbacks to avoid binding issues
+
+**Normal Function:**
+
+- **Has its own `this`** context
+- `this` depends on how the function is called (can be unpredictable)
+
+```js
+const obj = {
+  name: "Vipul",
+  arrowFn: () => console.log(this.name), // undefined
+  normalFn() {
+    console.log(this.name);
+  }, // "Vipul"
+};
+obj.arrowFn();
+obj.normalFn();
+```
+
+---
+
+### 3. **`arguments` Object**
+
+**Arrow Function:**
+
+- **Does not have** its own `arguments` object
+
+**Normal Function:**
+
+- Has access to the **`arguments` object**, useful when handling unknown number of inputs
+
+```js
+function test() {
+  console.log(arguments);
+}
+test(1, 2); // [1, 2]
+
+const testArrow = () => {
+  console.log(arguments);
+};
+testArrow(1, 2); // ❌ Error: arguments is not defined
+```
+
+---
+
+### 4. **Can Be Used as Constructor?**
+
+**Arrow Function:**
+
+- ❌ **Cannot be used as constructors**
+- Will throw error if used with `new`
+
+**Normal Function:**
+
+- ✅ Can be used with `new` to create object instances
+
+```js
+function Person(name) {
+  this.name = name;
+}
+const p = new Person("Vipul"); // Works
+
+const PersonArrow = (name) => {
+  this.name = name;
+};
+// new PersonArrow("Vipul"); ❌ Error
+```
+
+---
+
+### 5. **Hoisting Behavior**
+
+**Arrow Function:**
+
+- **Not hoisted**. You must declare it before use.
+
+**Normal Function:**
+
+- ✅ **Hoisted** to the top of its scope. You can call it before its definition.
+
+```js
+greet(); // Works
+function greet() {
+  console.log("Hello");
+}
+
+sayHi(); // ❌ Error
+const sayHi = () => console.log("Hi");
+```
+
+---
+
+### 📺 Sir, can I share my screen to show both functions in action?
+
+```js
+// Normal function
+function multiply(a, b) {
+  return a * b;
+}
+
+// Arrow function
+const multiplyArrow = (a, b) => a * b;
+
+console.log(multiply(2, 3)); // 6
+console.log(multiplyArrow(2, 3)); // 6
+```
+
+---
+
+### 🔚 In Conclusion:
+
+| Feature             | Arrow Function                        | Normal Function                      |
+| ------------------- | ------------------------------------- | ------------------------------------ |
+| `this`              | Lexical `this` (inherits from parent) | Own `this` (dynamic based on caller) |
+| `arguments` object  | ❌ Not available                      | ✅ Available                         |
+| Used as constructor | ❌ Not possible                       | ✅ Possible                          |
+| Hoisting            | ❌ Not hoisted                        | ✅ Hoisted                           |
+| Syntax              | Concise                               | Verbose but flexible                 |
+
+---
+
+> ✅ **Use arrow functions** for short callbacks and when you want to avoid `this` confusion.
+> ✅ **Use normal functions** when you need `this`, `arguments`, or to define methods inside classes or objects.
+
+---
+
+Ready for the next one, Vipul?
+
+---
+
+<!-----
+
+  ---------58--------
+
+--- -->
+
+## 26) What is **Prototype** in JavaScript?
+
+---
+
+### 🔍 **Need**
+
+In JavaScript, we often create **multiple objects** that share **common properties or methods**.
+
+But if we define the same method inside each object, it leads to **code duplication** and **waste of memory**.
+
+✅ That's where the **Prototype** helps.
+It allows us to **share methods and properties** between objects efficiently.
+
+---
+
+### 📖 **What is Prototype?**
+
+In JavaScript, every function and object has a hidden property called `[[Prototype]]`, which can be accessed using:
+
+```js
+__proto__; // old way
+Object.getPrototypeOf(obj); // preferred modern way
+```
+
+When you access a property or method on an object, JavaScript looks:
+
+1. Inside the object itself.
+2. If not found, it goes up the **prototype chain** to look into its prototype.
+
+---
+
+### 🧠 Think of it like this:
+
+> A prototype is like a **backup object** — if JavaScript doesn't find something in the object, it looks inside its prototype.
+
+---
+
+### 👨‍🏫 Real-world Analogy:
+
+Imagine you’re a student and you don’t know the answer to a question.
+But your **teacher (prototype)** does.
+So, you ask your teacher (i.e., the prototype chain resolves the missing property).
+
+---
+
+### 🔧 Example:
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+// Adding method to prototype
+Person.prototype.sayHello = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const p1 = new Person("Vipul");
+const p2 = new Person("Rahul");
+
+p1.sayHello(); // Hello, my name is Vipul
+p2.sayHello(); // Hello, my name is Rahul
+```
+
+✔️ `sayHello()` is not copied to every object.
+✔️ It's shared via the prototype — **memory efficient**.
+
+---
+
+### 🔄 Prototype Chain:
+
+```js
+p1.hasOwnProperty("name"); // true (own property)
+p1.hasOwnProperty("sayHello"); // false (from prototype)
+
+console.log(p1.__proto__ === Person.prototype); // true
+```
+
+➡️ If property/method is not found in `p1`, JavaScript looks in `Person.prototype`, and then eventually up to `Object.prototype`.
+
+---
+
+### ✅ Pro Tip:
+
+- Every JavaScript object is linked to a prototype object.
+- This is how **inheritance** works in JavaScript.
+- **Built-in objects** like `Array`, `Function`, and `Object` also have prototypes.
+
+```js
+const arr = [1, 2, 3];
+console.log(arr.__proto__ === Array.prototype); // true
+```
+
+---
+
+### 🔚 In Conclusion:
+
+- Prototypes allow us to **share methods across objects** efficiently.
+- JavaScript uses a **prototype chain** to look up properties and methods.
+- It is the **backbone of inheritance** in JavaScript.
+
+---
+
+Would you like me to explain **prototype inheritance** next or something else?
+
+<!-----
+
+  ---------60--------
+
+--- -->
+
+## 60) How does the prototypal inheritance work in JavaScript?
+
+Ans :--- Ans:-- So, **Prototypal Inheritance** in JavaScript is a way for objects to inherit properties and methods from other objects. Instead of using classes (like in Java or C++),
+JavaScript uses **prototypes** to enable inheritance.
+
+---
+
+### 🔹 How does it work?
+
+1️⃣ Every JavaScript object has a hidden property called **`[[Prototype]]`**, which refers to another object (its prototype).  
+2️⃣ If we try to access a property or method that doesn't exist in the object, JavaScript automatically looks for it in the object's **prototype**.  
+3️⃣ This lookup continues up the chain **until it reaches `null`**, which means the end of the prototype chain.
+
+---
+
+### 🔹 Example to understand it better:
+
+Let’s say we have an object **`car`** with a method, and another object **`electricCar`** wants to use that method **without redefining it**.
+
+1. First, we create a `car` object with a method.
+2. Then, we create `electricCar` and set its prototype to `car`.
+3. Now, `electricCar` can access methods from `car` because of prototypal inheritance.
+
+---
+
+### 🔥 Key Points
+
+✅ Objects in JavaScript **inherit** from other objects, not classes.  
+✅ The `__proto__` property (or `Object.getPrototypeOf()`) lets us see an object’s prototype.  
+✅ This allows **method sharing** without duplicating code.  
+✅ If JavaScript can’t find a property in the object itself, it **looks up the prototype chain** until it finds it or reaches `null`.
+
+That’s how prototypal inheritance works! 🚀
+
+---
+
+<!-----
+
+  ---------61--------
+
+--- -->
+
+## 61. Describe JavaScript Global execution context ?
+
+Ans :--
+
+## 28) What is the **Global Execution Context** (GEC) in JavaScript?
+
+---
+
+### 🔍 **Need to understand it first**
+
+To understand how JavaScript **runs your code**, you must know how it **creates an environment** for execution.
+Every time you run a JS program, it needs a **context** to manage memory, variables, and function calls.
+
+That’s where the **Global Execution Context (GEC)** comes in.
+
+---
+
+### 🌐 **What is GEC?**
+
+**Global Execution Context** is the **first execution context** created by JavaScript when your code starts running.
+
+It is the base environment in which the **global code** runs — i.e., the code that is **not inside any function**.
+
+---
+
+### 🧠 Think of it like:
+
+> You're setting up the **main room** before calling any function.
+> That room has access to **everything globally declared** — like `var`, `function`, `console`, `window`, etc.
+
+---
+
+### ⚙️ Two phases of GEC
+
+When JS creates the GEC, it runs in **two phases**:
+
+#### 1. **Memory Creation Phase (Hoisting)**
+
+- JavaScript scans the code.
+- All `var` variables are stored with `undefined`.
+- All function declarations are stored with their entire function definition.
+- `let` and `const` are placed in the **temporal dead zone**.
+
+#### 2. **Code Execution Phase**
+
+- JS executes the code **line by line**.
+- Assigns actual values to variables.
+- Calls functions, creates new execution contexts if needed.
+
+---
+
+### 🖼️ Example:
+
+```js
+var x = 10;
+function greet() {
+  console.log("Hello");
+}
+greet();
+```
+
+During GEC creation:
+
+| Memory Phase (Hoisting)  | Execution Phase        |
+| ------------------------ | ---------------------- |
+| x → undefined            | x = 10                 |
+| greet → function() {...} | greet() → logs "Hello" |
+
+---
+
+### ✅ Key Features of GEC:
+
+- Only **one GEC** is created per program.
+- It forms the **base** of the **call stack**.
+- It is where your **global variables** and **functions** live.
+- `this` in GEC refers to **`window` (browser)** or **`global` (Node.js)**.
+
+---
+
+### 📌 Bonus: What happens after GEC?
+
+- When a function is called, a **new execution context** is created for that function.
+- These function execution contexts are **pushed onto the call stack**.
+- When the function ends, its context is **popped off**, and control goes back to the GEC.
+
+---
+
+### 🧠 Interview Tip:
+
+> ✅ "Every JavaScript program starts with one Global Execution Context, which handles global variables and functions. From there, function calls create their own local execution contexts, forming the execution stack."
+
+---
+
+Let me know if you want a **diagram** of the Call Stack with GEC and FEC!
+
+---
+
+<!-----
+
+  ---------62--------
+
+--- -->
+
+## 62. What is the type of undefined and null?
+
+Ans :--
+
+Note --- ( `Remember this null === null (is true ) but NaN=== NaN is false (AND nan is the only value in javscript which is not equal to itsel(only primitive  value i mean))`)
+
+Note -- type of NaN is number
+
+---
+
+## ✅ What is the type of `undefined` and `null` in JavaScript?
+
+---
+
+### 🔹 `undefined`:
+
+- It means **a variable has been declared but not assigned any value yet**.
+- JavaScript automatically assigns `undefined` to variables that are declared but not initialized.
+
+```js
+let x;
+console.log(x); // undefined
+```
+
+👉 **Type of `undefined`** is:
+
+```js
+typeof undefined; // 🔁 "undefined"
+```
+
+✔️ So `undefined` is a **primitive type**.
+
+---
+
+### 🔹 `null`:
+
+- It represents **intentional absence of any object value**.
+- Often used to explicitly clear or reset a variable.
+
+```js
+let person = null;
+```
+
+👉 **Type of `null`** is:
+
+```js
+typeof null; // 🔁 "object" ❗ (this is actually a bug in JavaScript!)
+```
+
+> 📌 This is a **known bug** in JavaScript from its early days — `null` returns `"object"` even though it's not an object.
+
+---
+
+### ✅ Final Summary:
+
+| Value       | Meaning                            | `typeof` result |
+| ----------- | ---------------------------------- | --------------- |
+| `undefined` | Variable declared but not assigned | `"undefined"`   |
+| `null`      | Intentional absence of value       | `"object"` ❗   |
+
+---
+
+<!-----
+
+  ---------63--------
+
+--- -->
+
+## 63. What is the process of **hoisting** for **normal** and **arrow** functions, and what are the differences between them?
+
+Ans :--
+
+### 🔍 First, let’s understand what **hoisting** is:
+
+> **Hoisting** is JavaScript's behavior of moving **declarations** (variables and functions) to the top of their scope **before execution**.
+
+But how hoisting works **differs** for different types of functions.
+
+---
+
+### 📌 1) **Normal Function Declarations** (✅ Fully Hoisted)
+
+```js
+sayHi(); // ✅ Works fine
+function sayHi() {
+  console.log("Hello!");
+}
+```
+
+- Here, the **entire function** is hoisted, **including its body**.
+- So you can call it **before it's defined**.
+
+---
+
+### ⚠️ 2) **Arrow Functions** (❌ Not fully hoisted)
+
+```js
+greet(); // ❌ TypeError: greet is not a function
+const greet = () => {
+  console.log("Hi!");
+};
+```
+
+- Arrow functions are stored in a **variable**, and **only the variable declaration** is hoisted — **not the function body**.
+- Until the line runs, the variable is in the **Temporal Dead Zone** (TDZ), so calling it before initialization throws an error.
+
+---
+
+### 🧠 What’s the core difference?
+
+| Feature                  | Normal Function    | Arrow Function                                   |
+| ------------------------ | ------------------ | ------------------------------------------------ |
+| Hoisting behavior        | ✅ Fully hoisted   | ❌ Not fully hoisted                             |
+| Can be called before?    | ✅ Yes             | ❌ No                                            |
+| Type after hoisting      | Function           | `undefined` (for `var`) or TDZ (for `let/const`) |
+| Context (`this` binding) | Has its own `this` | Inherits `this` from parent                      |
+
+---
+
+### ✅ Conclusion:
+
+> - **Normal functions** are fully hoisted — can be safely called before their definition.
+> - **Arrow functions** are **not hoisted like normal functions** — they're just variables, and cannot be used before their definition.
+
+---
+
+<!-- ------EXTRA PRACTISE QUESTION OF YOUTUBE------ -->
+
+```JS
+
+// Code to print a grid of the number
+let count = 1;
+let stringNo ="";
+
+for(let i = 1 ; i<4 ;i++){
+
+    for(let j = 1 ; j<4 ;j++){
+
+    // console.log(count);
+    stringNo+= `${count} `;
+    // stringNo+= count + " ";
+    count++;
+
+
+
+    }
+    console.log(stringNo);
+    stringNo ="";
+    // console.log("\n") ;
+
+}
+
+```
