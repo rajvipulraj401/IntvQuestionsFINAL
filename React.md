@@ -1733,13 +1733,13 @@ Ans :--
 
 In web applications, there is often a need to access the same data repeatedly (e.g., user info, product details, etc.). Fetching data from a **database** or an **API** every time can be **slow** and **inefficient**.
 
-So ,We need a way to **store** this data temporarily for **faster access** — and that's where we need **caching** .
+So ,We need a way to **store** this data temporarily for **faster access** — and for this we need **caching** .
 
 ---
 
 ### 📖 What is Caching?
 
-Caching is a **technique used to store data temporarily** so that it can be retrieved faster next time it's needed. Instead of repeatedly fetching data from a slow source (like a database or API), caching keeps it ready for quick access.
+Caching is a **technique used to store data temporarily** so that it can be retrieved faster next time when it's needed. Instead of repeatedly fetching data from a slow source (like a database or API), caching keeps it ready for quick access.
 
 ---
 
@@ -1749,12 +1749,12 @@ There are different types of caching based on where and how the data is stored.
 
 1. **Browser Cache**:
 
-   - The browser stores certain resources (images, HTML, CSS) locally on the user's machine.
-     **usage--**so that when we visit the website again the browser doesnot need to re-download those resource and can quickly load the page.
+   - In this the browser stores certain resources (like images, HTML, CSS) locally on the user's machine.
+     **usage--**so that when the user visit the website again the browser doesnot need to re-download those resource and can quickly load the page.
 
-2. **Content Delivery Network (CDN) Cache**:
+2. then we have a **Content Delivery Network (CDN) Cache**:
 
-   - A CDN caches Stores content (images, videos, etc.) on servers located around the world close to the user’s location.
+   - In this A CDN caches Stores content (images, videos, etc.) on servers located around the world close to the user’s location.
      **usage--** and then uses it to delivers the content quickly by serving it from the nearest server and hence improve the loading page.
 
 3. **Database Cache**:
@@ -1766,14 +1766,13 @@ There are different types of caching based on where and how the data is stored.
 4. **Application Cache**:
 
    Application caches is used to Cache application data either on the **client-side** (e.g., using **localStorage**, or **sessionStorage**) or on the **server-side** (e.g., in-memory cache like Redis).
-   **Usage:** and Helps store non-changing or user-specific data like preferences, tokens, or config settings, so it doesn't have to be fetched again and again.
+   **Usage:** and it Helps store non-changing or user-specific data like preferences, tokens, or config settings, so it doesn't have to be fetched again and again.
 
 ---
 
 ### 📺 Sir, can I share my screen to show this with an example?
 
 - I'll show a **browser caching example** in DevTools.
-- Then, I’ll demonstrate **Redis caching** to speed up database queries.
 
 ---
 
@@ -1789,12 +1788,6 @@ There are different types of caching based on where and how the data is stored.
   ---------80--------
 
 --- -->
-
-## 80. what is throttling ?
-
-Ans :---Great! Here's how you'd answer this **Type 1** question about **throttling** in JavaScript — in a clean, structured, and easy-to-speak format 👇
-
----
 
 ## 80) What is **Throttling** in JavaScript?
 
@@ -1879,7 +1872,123 @@ Let me know if you also want a **visual diagram** to explain this better during 
 
 ---
 
-## Extra question which i got while making react projects :--
+<!-----
+
+  ---------81 (Advance questions )------
+
+--- -->
+
+# ---------- Advance questions :--------------------
+
+## 52) What is Redux?
+
+---
+
+### 🔍 **Need**
+
+In large-scale JavaScript applications, particularly in frameworks like **React**, managing and sharing state across multiple components can get complicated. As components become deeply nested, passing data from one to another becomes **messy** and **difficult to maintain**.
+
+so to avoid props drilling and deal data in a central place we use a javascipt library called **Redux** .
+
+---
+
+### 📖 What is Redux?
+
+**Redux** is a JavaScript library used for managing the state of your application. It provides a centralized state management which makes it easier to debug, test, and maintain.
+
+And instead of passing state from parent to child manually and using prop-drilling because of multiple levels of props passing, we just use Redux. By using Redux, **components can access the central store directly, no matter where they are in the component tree.**
+
+`Extra :--`
+`- Keep your state organized and easily accessible across the app`
+`- Avoid the hassle of **prop drilling** by enabling direct access to state in any component`
+`- Have a **clear flow of data changes**, making it easier to track how and when the state is updated`
+
+`By using Redux, your application's state management becomes more predictable and manageable, even as it scales.`
+
+---
+
+### 🧠 How Redux Works (Core Concepts)
+
+Redux is based on **three main principles**:
+
+1. **Single Source of Truth**
+
+   - All application state is stored in one **central object** called the **store**.
+
+2. **State is Read-Only**
+
+   - You **cannot modify the state directly**.
+   - To update the state, you must **dispatch an action**.
+
+3. **Changes are Made with Pure Functions (Reducers)**
+
+   - A function called a **reducer** takes the current state and an action, and **returns a new state** without modifying the old one.
+
+---
+
+### 🔄 Redux Flow (How it works)
+
+```text
+UI ➡ dispatch(action) ➡ reducer ➡ new state ➡ UI updates
+```
+
+1. The **UI** dispatches an **action** (an object describing what happened).
+2. The **reducer** function takes the previous state and the action, and **calculates the next state**.
+3. The **store** updates and triggers the UI to **re-render** with the new state.
+
+---
+
+### 🔧 Example (Counter)
+
+```js
+// Action
+const increment = { type: "INCREMENT" };
+
+// Reducer
+function counter(state = 0, action) {
+  switch (action.type) {
+    case "INCREMENT":
+      return state + 1;
+    default:
+      return state;
+  }
+}
+
+// Store
+const store = Redux.createStore(counter);
+
+store.dispatch(increment); // Increases state to 1
+console.log(store.getState()); // 1
+```
+
+---
+
+### 📺 Sir, can I share my screen to show this with a React example?
+
+I can show how to:
+
+- Create a Redux store
+- Connect it with a component using `useSelector` and `useDispatch`
+- Explain how it avoids prop-drilling and simplifies large applications
+
+---
+
+### ✅ Pro Tip:
+
+- Redux is often used with **React** via the **`react-redux`** library.
+- With tools like **Redux Toolkit**, setting up Redux has become **simpler and faster**.
+- Redux is especially useful when the app has **complex or shared state logic** (like authentication, theme, user data, etc).
+
+---
+
+> 👉 In short:
+> **Redux = Centralized state manager** that makes state predictable and debugging easier in large apps.
+
+---
+
+## 82.
+
+# -----------Extra question which i got while making react projects:-----------
 
 Read them in vs code
 (React uestion jo maine project meseekha.md)
