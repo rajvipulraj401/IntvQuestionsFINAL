@@ -1,0 +1,73 @@
+Great! You've remembered more questions — let's add them under **Thinkify** and give you the updated list:
+
+---
+
+**CBRE**
+
+**a) DSA Questions:**
+
+* Count the number of characters in a string
+
+**b) UI Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+**c) Other Technical Project Related Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+---
+
+**Nagarro**
+
+**a) DSA Questions:**
+
+* Given an array of numbers, return the indices such that when we add two numbers it is equal to target
+* Longest substring without repeating characters
+
+**b) UI Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+**c) Other Technical Project Related Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+---
+
+**Deutsche Telekom Digital Labs**
+
+**a) DSA Questions:**
+
+* Return the index if the sum of prefix and suffix are equal, else return -1
+
+**b) UI Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+**c) Other Technical Project Related Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+---
+
+**Thinkify**
+
+**a) DSA Questions:**
+
+* Flatten the array without using `flat` method
+
+**b) UI Questions:**
+
+* *(Not remembered / Not mentioned)*
+
+**c) Other Technical Project Related Questions:**
+
+* Write polyfills for:
+
+  * `map`
+  * `reduce`
+  * `filter`
+
+---
+

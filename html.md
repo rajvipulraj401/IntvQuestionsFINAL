@@ -80,7 +80,7 @@ Ans -- When we visit a website, the process of loading HTML and JavaScript files
 **Server Response & Parsing**: And then the Server responds with the HTML file and after getting the HTML file the browser starts parsing it line by line from top to bottom .
 and it then loads the css and javascript files ( and if theere is no aync or defer tag the browser stops HTML parsing and it starts downloading and executing javascript file where it finds .)
 
-If async is used, JS is downloaded and executed as soon as it's ready (even if HTML is still parsing).
+If async is used, JS is downloaded in parallel but is executed as soon as it's ready (even if HTML is still parsing).
 
 If defer is used, JS is downloaded in parallel but executed after HTML is fully parsed.
 

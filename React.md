@@ -1536,13 +1536,401 @@ function MyComponent() {
 
 57. What are the differences between the useRef hook and the useState hook?
 58. Explain the difference between useCallback and useMemo hooks.
+
+58.1. Explain the Context Api in React Application.?
+
+Ans:---
+Great! Since this is an **explanation-type question**, I’ll follow the **Type 1 template** you mentioned earlier.
+
+---
+
+## 90) What is the **Context API** in a React Application?
+
+---
+
+### 🔍 **Need**
+
+In a React app, passing data like **theme**, **user info**, or **language** from parent to child becomes difficult when components are deeply nested. This problem is called **prop drilling**, where you have to pass props through multiple layers even if intermediate components don’t need them.
+
+To solve this, React introduced the **Context API** — a built-in way to **share global values** across components without manually passing props at every level.
+
+---
+
+### 📖 What is Context API?
+
+The **Context API** is a feature in React that:
+
+- Allows us to **create global data** that can be shared across the entire component tree.
+- Helps in **avoiding prop drilling**.
+- Works well for things like **themes, authentication, user preferences**, etc.
+
+It consists of 3 main steps:
+
+1. **Create Context** using `React.createContext()`
+2. **Provide Context** using `<Context.Provider>`
+3. **Consume Context** using `useContext()` hook or `Context.Consumer`
+
+---
+
+### 🛠️ How to use Context API
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Let’s implement a simple **theme switching** using Context API.
+
+---
+
+#### ✅ 1. Create the Context
+
+```js
+const ThemeContext = React.createContext("light");
+```
+
+#### ✅ 2. Provide the Context
+
+```js
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+#### ✅ 3. Consume the Context (using useContext)
+
+```js
+function Toolbar() {
+  const theme = React.useContext(ThemeContext);
+  return <div>The current theme is {theme}</div>;
+}
+```
+
+---
+
+### ✅ Pro Tip:
+
+- You can **nest multiple providers** (like Theme + Auth + Language) and access them individually.
+- If a component consumes a context and the value changes, the component **automatically re-renders**.
+
+---
+
+### 🧠 Real-World Examples
+
+- **Theme switching** (light/dark mode)
+- **Authentication system** (user login state)
+- **Language/Localization (i18n)**
+- **Shopping cart** in e-commerce apps
+
+---
+
+### 🔚 In Summary:
+
+- Context API is used to **share data globally** in a React app without prop drilling.
+- It is ideal for **data that is global in nature** (like theme, user, settings).
+- `useContext` hook makes it very easy to use in function components.
+
+---
+
+Let me know if you'd like to see how to combine **Context API with `useReducer`** for global state management like Redux-lite!
+
+---
+
 59. What is the useContext hook? and how it is used
+
+Ans:--- Sure! Since this is an **explanation-type question**, I’ll follow the **Type 1 template** exactly.
+
+---
+
+## 89) What is the `useContext` Hook in React?
+
+---
+
+### 🔍 **Need**
+
+When building React applications, **passing data from parent to child** using props becomes difficult and messy for deeply nested components — this is called **prop drilling**.
+
+To solve this, React provides a **Context API** to share values across components without passing props manually at every level.
+
+The `useContext` hook allows us to **read and subscribe to the context directly** in any functional component.
+
+---
+
+### 📖 What is `useContext`?
+
+`useContext` is a React hook that:
+
+- Allows a component to **access values from a React Context**.
+- Helps avoid prop drilling by **directly consuming shared data** (like theme, user, auth, etc.).
+- Automatically **subscribes the component to context changes**, so it re-renders if the context value changes.
+
+---
+
+### 🛠️ How to use `useContext`
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Let’s say we want to share a theme (`light` / `dark`) between components:
+
+---
+
+```jsx
+// 1. Create the context
+const ThemeContext = React.createContext("light");
+
+// 2. Provide the context
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+// 3. Consume the context using useContext
+function Toolbar() {
+  const theme = useContext(ThemeContext);
+  return <div>Current theme is: {theme}</div>;
+}
+```
+
+---
+
+### ✅ Pro Tip:
+
+- `useContext` always **uses the nearest matching Provider** above the component in the tree.
+- If no `<Provider>` is found, it uses the **default value** passed to `createContext`.
+
+---
+
+### 📘 Real-world use cases:
+
+- **Auth Context** — share logged-in user data across pages.
+- **Theme Context** — switch between dark and light modes.
+- **Language Context** — implement multilingual support (i18n).
+
+---
+
+### ✅ In Summary:
+
+- `useContext` lets you **read values from a React Context** without passing props.
+- It makes **global state sharing** cleaner, especially for themes, user info, etc.
+- Works only with **React Context API**, not for Redux or other state libraries.
+
+---
+
+Let me know if you want me to show this with a practical use-case like auth, or global settings!
+
 60. What are the React custom hooks? How can custom hooks be created?
+
+ans:--Great! Since this is an **explanation-type question**, I’ll follow your **Type 1 template**.
+
+---
+
+## 91) What are **React Custom Hooks**? And how can they be created?
+
+---
+
+### 🔍 **Need**
+
+In React, we often write **repetitive logic** like:
+
+- Fetching data
+- Handling form inputs
+- Managing timers or state
+- Dealing with authentication
+
+Instead of repeating this logic across multiple components, React allows us to **extract it into reusable functions**. These are called **Custom Hooks**.
+
+---
+
+### 📖 What are Custom Hooks?
+
+**Custom Hooks** are:
+
+- JavaScript functions whose **names start with `use`**
+- That **reuse logic** from built-in hooks like `useState`, `useEffect`, etc.
+- They make our components **cleaner**, **more readable**, and **reusable**.
+
+> ✅ Custom hooks help in **sharing logic**, **not state** or **UI**.
+
+---
+
+### 🛠️ How to Create a Custom Hook?
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+Let’s create a custom hook called `useWindowWidth` that returns the current screen width.
+
+---
+
+### ✅ Step 1: Create a file `useWindowWidth.js`
+
+```js
+import { useState, useEffect } from "react";
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
+
+export default useWindowWidth;
+```
+
+---
+
+### ✅ Step 2: Use this hook in your component
+
+```js
+import useWindowWidth from "./useWindowWidth";
+
+function MyComponent() {
+  const width = useWindowWidth();
+
+  return <div>Screen width: {width}px</div>;
+}
+```
+
+---
+
+### 💡 Why Use Custom Hooks?
+
+- **Avoid code duplication**
+- **Keep components clean**
+- **Extract and test logic independently**
+- **Use other hooks inside them** (like `useState`, `useEffect`, `useRef`)
+
+---
+
+### 🧠 Real-World Examples of Custom Hooks
+
+- `useForm` for managing form fields
+- `useAuth` for handling login/logout
+- `useFetch` for API calls
+- `useDarkMode` for dark/light theme toggling
+
+---
+
+### 🔚 In Summary
+
+- Custom Hooks are **reusable functions** that follow the rules of React hooks.
+- They are ideal for **abstracting repetitive logic**.
+- Name them with a `use` prefix and use any built-in hooks inside.
+
+## Let me know if you want real-world use cases or how to **combine custom hooks with context or reducer**.
+
 61. How to increase the performance of a ReactJS application?
 62. How to implement UI in frontend using Figma design?
 63. **When should you consider creating a custom hook?**
 64. **What is Prop Drilling in React?**
 65. **What is the primary purpose of the useCallback hook in React?**
+66. what are the difference between useLayoutEffect and useEffect?
+    ans:---Perfect! You're right — this is a **difference-type question**, so I’ll follow the **Type 2 template** exactly. Here's the correct answer for:
+
+---
+
+## 88) What is the difference between `useLayoutEffect` and `useEffect` in React?
+
+---
+
+### ✅ **Similarity first**
+
+Both `useEffect` and `useLayoutEffect` are **React hooks** that allow us to run **side effects** in function components.
+
+They both accept a **function** and a **dependency array**, and are called after a component renders.
+
+But they differ in **when** and **how** they run.
+
+---
+
+### 🔄 **But there are some key differences between them**:
+
+---
+
+1. **The first major difference is the timing of execution.**
+
+- `useEffect` runs **asynchronously after the browser paints the screen**.
+
+  > This means that the DOM updates are visible to the user **before** the effect runs.
+
+- `useLayoutEffect` runs **synchronously before the browser paints the screen**.
+
+  > This ensures the effect runs **before** any visual updates are seen, avoiding flickers.
+
+---
+
+2. **Secondly, their use cases are different.**
+
+- Use `useEffect` when you are doing things like:
+
+  - API calls
+  - Setting subscriptions or timers
+  - Updating non-visual states
+  - Logging
+
+- Use `useLayoutEffect` when you need to:
+
+  - Measure DOM elements (e.g., width, height)
+  - Apply DOM mutations before painting
+  - Prevent layout flickers or flashes of incorrect content
+
+---
+
+3. **Blocking behavior differs.**
+
+- `useLayoutEffect` **blocks the browser painting** until the code inside it runs — this may impact performance if used unnecessarily.
+- `useEffect` does **not block** the paint, so it’s **more performance-friendly** and preferred in most cases.
+
+---
+
+### 📺 Sir, can I share my screen to show this with an example?
+
+```jsx
+// useEffect (after paint)
+useEffect(() => {
+  console.log("Effect: DOM is painted");
+  const box = document.getElementById("box");
+  console.log(box.offsetWidth);
+}, []);
+```
+
+```jsx
+// useLayoutEffect (before paint)
+useLayoutEffect(() => {
+  console.log("Layout Effect: DOM is not yet painted");
+  const box = document.getElementById("box");
+  console.log(box.offsetWidth);
+}, []);
+```
+
+In the above example, both measure the width, but only `useLayoutEffect` does it **before the screen shows anything**.
+
+---
+
+### ✅ So in Conclusion:
+
+| Feature                | `useEffect`                | `useLayoutEffect`                     |
+| ---------------------- | -------------------------- | ------------------------------------- |
+| Timing                 | After DOM paint (async)    | Before DOM paint (sync)               |
+| Blocks screen painting | ❌ No                      | ✅ Yes                                |
+| Use case               | API calls, timers, logging | Measuring layout, preventing flickers |
+| Performance            | More efficient             | Can delay paint                       |
+
+---
+
+> 👉 Use `useEffect` by default.
+> Use `useLayoutEffect` **only when layout measurement or synchronous DOM manipulation is required** before paint.
+
+---
 
 # **(i)** basic questions remaining:------
 
@@ -1567,15 +1955,7 @@ function MyComponent() {
 
 --- -->
 
-77. What is lazy loading and debouncing?
-
-Ans :--
-
-Perfect! This is again a **Type 1** style question. Let's answer it in a structured way — starting with **why we need them**, what they are, and their differences with **real-world examples** and **code snippets**.
-
----
-
-## 27) What is **Lazy Loading** and **Debouncing** in JavaScript?
+## 27) What is **Lazy Loading** and **Debouncing** in JavaScript? [ ❌ (do again watch video)]
 
 ---
 

@@ -297,3 +297,105 @@ d) `:first-child`
 ---
 
 Let me know if you want the answer or explanations!
+
+<!-----
+
+  ---------3.1--------
+
+--- -->
+
+Q3.1) What is the difference between display flex and display block?
+
+Ans:--
+
+---
+
+### ✅ **Similarity first**
+
+Both `display: block` and `display: flex` are values of the `display` property in CSS.
+They control how an element behaves in the layout — but they are used for **different layout purposes**.
+
+---
+
+### 🔄 **But there are some key differences between them:**
+
+---
+
+### 1. 🧱 **display: block**
+
+- It makes the element behave like a **block-level element**.
+- It takes **full width** by default and starts on a **new line**.
+- Common block elements: `<div>`, `<section>`, `<p>`
+
+```css
+.block-box {
+  display: block;
+}
+```
+
+```html
+<div class="block-box">Block 1</div>
+<div class="block-box">Block 2</div>
+```
+
+> ✅ Block-level elements stack vertically one after another.
+
+---
+
+### 2. 📦 **display: flex**
+
+- It makes the element a **flex container**.
+- Children of a flex container become **flex items**, laid out in a **row by default** (unless specified `flex-direction: column`).
+- You can align, justify, and arrange child elements easily.
+
+```css
+.flex-box {
+  display: flex;
+  gap: 10px;
+}
+```
+
+```html
+<div class="flex-box">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+```
+
+> ✅ Flexbox is **used for advanced layout and alignment**, both in 1D (either horizontal or vertical).
+
+---
+
+### 🧠 Key Differences Summary:
+
+| Feature                | `display: block`          | `display: flex`                                |
+| ---------------------- | ------------------------- | ---------------------------------------------- |
+| Layout Direction       | Vertical stacking         | Horizontal (row) or vertical (column)          |
+| Children behavior      | Stack one below the other | Flex items aligned in same axis                |
+| Alignment capabilities | Limited                   | Powerful with `justify-content`, `align-items` |
+| Use case               | Basic layout              | Complex layouts with alignment                 |
+
+---
+
+### ✅ Pro Tip:
+
+Use `display: flex` when you want to:
+
+- Center elements,
+- Create navbars,
+- Build responsive layouts easily.
+
+Use `display: block` when you just want an element to take up full width and stack normally.
+
+---
+
+> 👉 So in short:
+>
+> - `display: block` = **Simple vertical stacking**
+> - `display: flex` = **Flexible layout and alignment**
+
+<!-----
+
+  ---------4--------
+
+--- -->

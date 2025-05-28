@@ -1822,61 +1822,207 @@ You can use Event Listeners for **mouse events, keyboard events, input events**,
 
 ## 45)What is an event loop? How does JavaScript event loop work and how does it contribute to the language's asynchronous nature? Can you explain the concept of the call stack and the message queue in this context?
 
-46)How to console params and query in JavaScript?
+<!-- -------------version old --- -->
 
-ans:---That's a great start—and I really appreciate that you're trying to **speak in a structured format (Need → What → How)** and even acknowledging when you're unsure. That’s honest and human. Let’s go through what you said, line-by-line first, and then I’ll give you a **corrected, complete version** of the answer using the same speaking style you're practicing.
-
----
-
-## 🧾 **Your Spoken Answer (Original - As Spoken)**
-
-> So, when we actually make any API calls or whenever we actually went to any server, we can see that in the URL, we have, after the question mark, we can see some of the things which are written.
-> So, those things, like for example, we went to a URL called [www.xyz.com](http://www.xyz.com) and then slash page, then question mark, event equal to something. And then and equal to, and place equal to something.
-> So, whatever that is written after the question mark is actually a parameter, a query and parameter of the URL.
-> So, in order to console.log that thing in JavaScript, I don't know what to do. I actually forgot it.
-
-✅ You're trying to explain something correctly but got stuck on the **"how"** part—which is totally fine in practice mode.
+## **46) How to console params and query in JavaScript?**
 
 ---
 
-## ✅ **Corrected & Complete Answer in “Need → What → How” Format**
+### 1. **Need (Why do we need to access query and params?)**
+
+> In web development, we often receive data through the URL.
+> This data can be in the form of **query** (after the `?`) or **params** (as part of the URL path).
+> and We need to access this information in JavaScript to make our website dynamic and show different things on different routes So, we need a way to **extract both query and params** using JavaScript.
 
 ---
 
-### 1. **Need (Why do we need to access query parameters?)**
+### 2. **What (What are query and params?)**
 
-> When working on web applications, we often receive data through the URL in the form of **query parameters**.
-> These are typically used for filtering, tracking, pagination, or passing small bits of data between pages.
-> So, we need a way in JavaScript to **read and work with** those query parameters.
+Now lets understand what are them :--
+so what is a query .
 
----
+> ✅ **Query** – These are key-value pairs that come **after the `?`** in a URL.
+> Example:
+>
+> ```
+> https://www.xyz.com/page?name=ram&age=30
+> ```
+>
+> Here, `name=ram` and `age=30` are part of the **query**.
 
-### 2. **What (What are query parameters?)**
-
-> Query parameters are the key-value pairs that appear **after the `?` in a URL**.
-> For example:
-> `https://www.xyz.com/page?event=webinar&place=delhi`
-> In this case, `event=webinar` and `place=delhi` are query parameters.
-> They're not part of the path—they’re extra data sent in the URL.
+> ✅ **Params** – These are parts of the **URL path itself**, used more in frameworks like Express or React Router.
+> Example:
+>
+> ```
+> https://www.xyz.com/user/phone/samsung
+> ```
+>
+> Here, `phone` and `samsung` are **params** in the URL path.
 
 ---
 
 ### 3. **How (How to access or log them using JavaScript)**
 
-> Sir, I would like to share my screen to show this with an example. Let me write some code to demonstrate:
+Now lets understand how we actually extract them
+
+In JavaScript, parameters and query strings are parts of a URL and we can access those parameters from **window.location object** when working in a browser environment
+and in order to extract those search parameters we can use `URLSearchParams` object of the `URL api`.
+
+### 4. 📺 Sir, can I share my screen to show this with an example?
+
+#### 🟢 **To Access Query:**
+
+**Step 1:** : Suppose we have a URL like: `https://www.xyz.com/page?name=ram&age=30`
+
+**Step 2:** :- we then the get the url from window object using `window.location.href`method
+
+**Step 3:** :- and then we get the query parameter by using the `URLSearchParams` object and using `URL.search` property inside it.
+
+**Step 4:** :- And then finally we use the `.get()` method and the name of the queries we want and then we get the values
+
+for instance in the example for `www.xyz.com/pages?name=ram&age=30`,
+if we do`params.get("name")` it returns `"ram"`
+and `params.get("age")` returns `"30"`
 
 ```javascript
-// Let's say our URL is:
-// https://www.xyz.com/page?event=webinar&place=delhi
+// Example URL: https://www.xyz.com/page?name=ram&age=30
 
-const params = new URLSearchParams(window.location.search);
+// Step 1: Get the full URL
+const url = new URL(window.location.href); // e.g., "https://www.xyz.com/page?name=ram&age=30"
 
-const event = params.get("event");
-const place = params.get("place");
+// Step 2: Extract query string from the URL using .search
+const params = new URLSearchParams(url.search); // gives "?name=ram&age=30"
 
-console.log("Event:", event); // Output: webinar
-console.log("Place:", place); // Output: delhi
+// Step 3: Get individual values using .get()
+console.log("Name:", params.get("name")); // Output: ram
+console.log("Age:", params.get("age")); // Output: 30
 ```
+
+> ✅ In this code:
+>
+> - `window.location.href` gives the current full URL.
+> - `new URL(...)` converts that string into a proper URL object.
+> - `url.search` extracts the part after the `?`.
+> - `URLSearchParams` helps us read each query by key using `.get()`.
+
+---
+
+#### 🔵 **To Access Params (Path Parameters):**
+
+**Step 1:** Suppose the URL is:
+`https://www.xyz.com/user/ram/30`
+
+**Step 2:** Get the full URL using `window.location.href`
+
+**Step 3:** Extract the pathname (the part after the domain) using `.pathname`
+
+**Step 4:** Split the pathname by `/` to get each segment in an array
+
+**Step 5:** Access the parameters by their index in the array
+
+**Step 6:** Log the values to the console
+
+---
+
+Path params are not directly accessible like query strings, but we can extract them by splitting the `pathname`.
+
+```javascript
+// Example URL: https://www.xyz.com/user/ram/30
+// Step 1: Get the full URL
+const url = new URL(window.location.href); // e.g., "https://www.xyz.com/user/ram/30"
+
+// Step 2: Get the pathname part
+const path = url.pathname; // "/user/ram/30"
+
+// Step 3: Split the path into segments
+const segments = path.split("/"); // ["", "user", "ram", "30"]
+
+// Step 4: Access path params by index
+const username = segments[2]; // "ram"
+const age = segments[3]; // "30"
+
+// Step 5: Log them
+console.log("Username:", username);
+console.log("Age:", age);
+```
+
+> ✅ In this code:
+>
+> - `url.pathname` gets the part of the URL after the domain.
+> - We use `.split("/")` to break it into parts.
+> - Then we simply access the values using array indexes.
+
+> In frameworks like **Express.js** or **React Router**, you'd get these params automatically from the route.
+
+### ✅ In React Router DOM v6:
+
+In order to get **query** and **params** in React, we make use of **React Router DOM**. React Router lets us define dynamic routes with parameters (called **params**) and also helps us read query strings from the URL. and react router dom provide us two hooks useParams and useLocation hoook using which we can extract params and query from the url in React applications.
+
+For example, if your URL looks like `/products/123?search=shoes`:
+
+- The `123` is a **param** (part of the path)
+- The `search=shoes` is a **query** (after the `?`)
+
+To access these in your React component, you use two hooks from React Router DOM:
+
+1. `useParams()` — to get the **params** from the URL path
+2. `useLocation()` — to get the full URL including query strings, which you can then parse using `URLSearchParams`
+
+### Steps to console params and query in React Router DOM:
+
+**Step 1:** Use the `useParams()` hook to get params from the URL path
+
+**Step 2:** Use the `useLocation()` hook to get the full location object, which includes the query string
+
+**Step 3:** Parse the query string with `URLSearchParams`
+
+**Step 4:** Use `.get()` to get the values of query parameters
+
+**Example:**
+If the URL is `/products/123?search=shoes`, then:
+
+- `params.id` will be `"123"` (path param)
+- `queryParams.get("search")` will be `"shoes"` (query param)
+
+```js
+import { useParams, useLocation } from "react-router-dom";
+
+function ProductPage() {
+  // Step 1: Get params from URL path
+  const params = useParams(); // { id: "123" }
+
+  // Step 2: Get query string from URL
+  const location = useLocation(); // get location object with URL info
+
+  // Step 3: Parse query string
+  const queryParams = new URLSearchParams(location.search);
+
+  // Step 4: Log params and query values
+  console.log("Param id:", params.id); // 123
+  console.log("Query search:", queryParams.get("search")); // shoes
+}
+```
+
+This way, React Router DOM helps us to easily read both **params** and **query strings** to make your React app dynamic.
+
+---
+
+### 🔚 In Summary
+
+| Feature  | Example URL              | Access Method                          |
+| -------- | ------------------------ | -------------------------------------- |
+| `params` | `/user/:id` → `/user/10` | `useParams()` in React Router          |
+| `query`  | `?search=js&page=2`      | `new URLSearchParams(location.search)` |
+
+---
+
+### 🔁 **Summary**
+
+> ✅ Use **`URLSearchParams`** to get query data (from `?` in the URL).
+> ✅ Use **`window.location.pathname` + `split()`** to extract path **params** in vanilla JS.
+> These are quick, native ways to access URL data in JavaScript without any external libraries.
+
+---
 
 > In this code:
 >
@@ -1886,22 +2032,9 @@ console.log("Place:", place); // Output: delhi
 
 ---
 
-### 🔁 Summary
-
-> So, we use the **URLSearchParams API** to read query parameters in JavaScript.
-> It's simple, built-in, and works directly on the URL. This is helpful in real-world projects when we want to personalize pages based on the URL or fetch filtered results.
-
 ---
 
-## 💬 Final Tip for Interview Speaking
-
-When you forget something during an interview, it’s better to calmly say:
-
-> “I’m forgetting the exact method right now, but I believe we use something like `URLSearchParams` on `window.location.search` to extract query values. I’d be happy to check or demo it live.”
-
-## Would you like me to make a short **audio script** for this answer so you can rehearse it aloud just like in an interview?
-
-47)What is Event Bubbling in JavaScript?
+## 47)What is Event Bubbling in JavaScript?
 
 48. Describe Web Storage.
 
@@ -2575,7 +2708,49 @@ They can take parameters, return values, and be passed as arguments or used as c
 
 ---
 
-### 2. **Second difference: their behavior with `this` is different.**
+### 2. **Second difference is in their: Hoisting behavior**
+
+- **Normal functions are hoisted completely**, meaning you can call them **before their declaration** in the code.
+
+  ```js
+  greet(); // ✅ Works
+
+  function greet() {
+    console.log("Hello");
+  }
+  ```
+
+- **But on the other hand Arrow functions are not hoisted like normal functions**.
+  Only the **variable declaration** is hoisted (as `undefined`), not the assignment.and its value remains undefined until the line of assignment .
+
+  So Calling them before definition causes **TypeError**. as , if you try to call the arrow function before its definition, JavaScript tries to call `undefined()` — and that causes a TypeError.
+
+Think of it this way:
+When the code is parsed, the variable greet is hoisted but not its arrow function body.
+So it’s like saying:
+
+```js
+var greet; // greet is undefined here
+greet(); // ❌ TypeError: greet is not a function
+
+const greet = () => {
+  console.log("Hello");
+};
+```
+
+So thats why this below code will throw type error because we do not know the type of undefined .(as it has no type so type error)
+
+```js
+greet(); // ❌ TypeError: greet is not a function
+
+const greet = () => {
+  console.log("Hello");
+};
+```
+
+---
+
+### 3. **Third difference: their behavior with `this` is different.**
 
 - **Arrow functions** do **not have their own `this`**. They **lexically inherit `this`** from the surrounding scope, so the value of `this` depends on **where the arrow function is defined**, not how it is called.
 
@@ -2617,7 +2792,7 @@ They can take parameters, return values, and be passed as arguments or used as c
 
 ---
 
-3. **Third, their usage in `constructor functions` differs.**
+4. **Fourth, is their usage in `constructor functions` .**
 
    - **Arrow functions** **cannot be used as constructor functions**. as They do not have their own `this`, Hence, using them with the `new` keyword will throw an error.
 
@@ -2640,7 +2815,7 @@ They can take parameters, return values, and be passed as arguments or used as c
 
 ---
 
-4. **Also, Arrow functions do not have `arguments` object , and trying to use it inside an arrow function will give an error:**. They inherit the `arguments` object from the outer function scope if it is inside another regular function.
+5. **Also, Arrow functions do not have `arguments` object , and trying to use it inside an arrow function will give an error:**. They inherit the `arguments` object from the outer function scope if it is inside another regular function.
    On the other hand **Normal functions** have their own `arguments` object, which is an array-like object containing all the passed parameters.
 
    ```js
@@ -2865,7 +3040,15 @@ console.log(arr.__proto__ === Array.prototype); // true
 
 ---
 
-Would you like me to explain **prototype inheritance** next or something else?
+### Bonus Tip:
+
+Tu kisi bhi cheez ka prototype dekhna chahta hai, chahe wo number ho, string, array ya kuch aur, toh bas `Object.getPrototypeOf()` ya us class ka `.prototype` dekh le:
+
+```js
+console.log(Object.getPrototypeOf("hello")); // string ka prototype
+console.log(Object.getPrototypeOf([])); // array ka prototype
+console.log(Object.getPrototypeOf(42)); // number ka prototype
+```
 
 <!-----
 
@@ -2994,18 +3177,14 @@ That’s how prototypal inheritance works! 🚀
 
 --- -->
 
-## 61. Describe JavaScript Global execution context ?
+## 61. Describe JavaScript Global execution context (GEC) in javascript ? [ ❌ (do again watch video)]
 
 Ans :--
 
-## 28) What is the **Global Execution Context** (GEC) in JavaScript?
-
----
-
 ### 🔍 **Need to understand it first**
 
-To understand how JavaScript **runs your code**, you must know how it **creates an environment** for execution.
-Every time you run a JS program, it needs a **context** to manage memory, variables, and function calls.
+In order To understand how JavaScript code **runs behind the scenes **, we need to know about Execution Contexts**.
+Every time we run a JS program, it needs a **context\*\* to manage memory, variables, and function calls.
 
 That’s where the **Global Execution Context (GEC)** comes in.
 
@@ -3013,22 +3192,13 @@ That’s where the **Global Execution Context (GEC)** comes in.
 
 ### 🌐 **What is GEC?**
 
-**Global Execution Context** is the **first execution context** created by JavaScript when your code starts running.
+**Global Execution Context** is the **first execution context** created by JavaScript when our code starts running.
 
 It is the base environment in which the **global code** runs — i.e., the code that is **not inside any function**.
 
 ---
 
-### 🧠 Think of it like:
-
-> You're setting up the **main room** before calling any function.
-> That room has access to **everything globally declared** — like `var`, `function`, `console`, `window`, etc.
-
----
-
-### ⚙️ Two phases of GEC
-
-When JS creates the GEC, it runs in **two phases**:
+### ⚙️ When JS creates the GEC, it runs in **two phases**:
 
 #### 1. **Memory Creation Phase (Hoisting)**
 
@@ -3037,7 +3207,7 @@ When JS creates the GEC, it runs in **two phases**:
 - All function declarations are stored with their entire function definition.
 - `let` and `const` are placed in the **temporal dead zone**.
 
-#### 2. **Code Execution Phase**
+#### 2. and in the **Code Execution Phase**
 
 - JS executes the code **line by line**.
 - Assigns actual values to variables.
@@ -3087,17 +3257,13 @@ During GEC creation:
 
 ---
 
-Let me know if you want a **diagram** of the Call Stack with GEC and FEC!
-
----
-
 <!-----
 
   ---------62--------
 
 --- -->
 
-## 62. What is the type of undefined and null?
+## 62. What is the type of `undefined` and `null` in JavaScript?
 
 Ans :--
 
@@ -3107,11 +3273,17 @@ Note -- type of NaN is number
 
 ---
 
-## ✅ What is the type of `undefined` and `null` in JavaScript?
+### 🔍 **Need**
+
+- Both null and undefined are used to represent the absence of a value. but they differ in their type and their usecases .
 
 ---
 
+### 📘 **What are `undefined` and `null` and what is their type?**
+
 ### 🔹 `undefined`:
+
+`undefined` refers to the unintentional absence of data .
 
 - It means **a variable has been declared but not assigned any value yet**.
 - JavaScript automatically assigns `undefined` to variables that are declared but not initialized.
@@ -3133,11 +3305,21 @@ typeof undefined; // 🔁 "undefined"
 
 ### 🔹 `null`:
 
-- It represents **intentional absence of any object value**.
-- Often used to explicitly clear or reset a variable.
+On the other hand `null`
+
+- represents intentional absence of data which we give it explicitly during the
+  time of development to indicate "no value" or "empty value".
 
 ```js
 let person = null;
+```
+
+or
+
+```js
+let user = {
+  name: null, // name exists, but value intentionally empty
+};
 ```
 
 👉 **Type of `null`** is:
