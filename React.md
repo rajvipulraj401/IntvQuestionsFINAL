@@ -1263,12 +1263,6 @@ export default TimerComponent;
 
 --- -->
 
-## 18. Differentiate between useState and useEffect Hooks in React.
-
-Sure! This is a **Type 2 – Difference-based** question, so I’ll follow your preferred **Type 2 template** with similarity first, then differences, and conclude with examples.
-
----
-
 ## 18) Differentiate between `useState` and `useEffect` Hooks in React
 
 ---
